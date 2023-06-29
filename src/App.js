@@ -24,7 +24,7 @@ function App() {
         </nav>
         <div className="container">
           <Routes>
-            <Route path="/" exact element={<ListCustomerComponent />} />
+            <Route exact path="/" element={<ListCustomerComponent />} />
             <Route path="/customers" element={<ListCustomerComponent />} />
             <Route path="/add-customer" element={<AddCustomerForm />} />
             <Route path="/*" element={<NoMatch />} />
