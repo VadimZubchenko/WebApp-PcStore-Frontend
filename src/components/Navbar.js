@@ -6,10 +6,10 @@ const Navbar = (props) => {
     links = (
       <ul className="navbar-nav">
         <li className="nav-item active">
-          <Link to="/">Shopping List</Link>
+          <Link to="/">Customers List</Link>
         </li>
         <li className="nav-item" style={{ marginLeft: 5 }}>
-          <Link to="/form">Add new item</Link>
+          <Link to="/add-customer">Add new customer</Link>
         </li>
         <li className="nav-item" style={{ marginLeft: 5 }}>
           <Link to="/" onClick={props.logout}>
@@ -24,7 +24,7 @@ const Navbar = (props) => {
       className="navbar navbar-expand-lg navbar-light bg-light"
       style={{ paddingLeft: 20 }}
     >
-      <p className="navbar-brand">Shopping App</p>
+      <p className="navbar-brand">PC Store</p>
       {links}
     </nav>
   );

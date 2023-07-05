@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LoginPage from "./components/LoginPage";
+import ListCustomerComponent from "./components/ListCustomerComponent";
+import AddCustomerForm from "./components/AddCustomerForm";
 
 function App() {
   // Create first state with staff list, token and error for showing a message of processing
@@ -79,6 +81,25 @@ function App() {
           case "register":
             setError("Register success"); // methood upddates STATE with error: "Register succes" and first time saveToStorage see above
             return;
+          case "login":
+            //let token = await response.json();
+            setState((state) => {
+              // isLogged == true ,state.isLogged changes to true, see above
+              // which opens other tempRender page, see below
+              let tempState = {
+                ...state,
+                isLogged: true,
+                //token: token.token, // token.token, because in session is token:token
+              };
+              // saving the page state into sessionStorage
+              //saveToStorage(tempState);
+              return tempState;
+            });
+            //getShoppingList(token.token);
+            return;
+          case "logout":
+            clearState();
+            return;
           default:
             return;
         }
@@ -127,7 +148,7 @@ function App() {
 
   const login = (user) => {
     setUrlRequest({
-      url: "/login",
+      url: "http://localhost:8080/login",
       request: {
         method: "POST",
         mode: "cors",
@@ -176,28 +197,15 @@ function App() {
     </Routes>
   );
   // this part XML will be loaded when user is already logged and isLogged change to true in the 'first' type of state
-  /* if (state.isLogged) {
+  if (state.isLogged) {
     tempRender = (
       <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-            <ShoppingList
-              list={state.list}
-              removeFromList={removeFromList}
-              editItem={editItem}
-            />
-          }
-        />
-        <Route
-          path="/form"
-          element={<ShoppingForm addShoppingItem={addShoppingItem} />}
-        />
+        <Route exact path="/" element={<ListCustomerComponent />} />
+        <Route path="/add-customer" element={<AddCustomerForm />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
-  } */
+  }
 
   return (
     <div className="App">

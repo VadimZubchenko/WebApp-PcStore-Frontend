@@ -3,7 +3,7 @@ import { useState } from "react";
 const LoginPage = (props) => {
   // state of LoginPage
   const [state, setState] = useState({
-    staffName: "",
+    login: "",
     password: "",
   });
   //define method 'onChange' as a property, that is equal as an arrow function,
@@ -19,16 +19,16 @@ const LoginPage = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (state.staffName.length < 4 || state.password.length < 8) {
+    if (state.login.length < 4 || state.password.length < 8) {
       // the message will appear in messageArea of App's component by changig state's parameter 3setError=(error)
       props.setError(
-        "staffName needs to be at least four and password eight characters long"
+        "login needs to be at least four and password eight characters long"
       );
       return;
     }
     // create object 'user' from values of state
     let user = {
-      staffName: state.staffName,
+      login: state.login,
       password: state.password,
     };
     if (event.target.name === "register") {
@@ -37,21 +37,21 @@ const LoginPage = (props) => {
       props.login(user);
     }
   };
-  //this is just for changing in return() the state.staffName and state.password to staffName and password.
-  const { staffName, password } = state;
+  //this is just for changing in return() the state.login and state.password to login and password.
+  const { login, password } = state;
   return (
     <div style={{ width: 500, backgroundColor: "lightgreen", margin: "auto" }}>
       <form className="mb-3">
-        <label htmlFor="staffName" className="form-label">
-          staffName
+        <label htmlFor="login" className="form-label">
+          login
         </label>
         <input
           type="text"
-          name="staffName"
-          id="staffName"
+          name="login"
+          id="login"
           className="form-control"
           onChange={onChange}
-          value={staffName}
+          value={login}
         />
         <label htmlFor="password" className="form-label">
           Password
