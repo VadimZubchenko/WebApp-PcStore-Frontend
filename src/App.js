@@ -135,7 +135,7 @@ function App() {
   const register = (user) => {
     // change second state of 'urlRequest', that makes to trigger component updating with useEffect()
     setUrlRequest({
-      url: "http://localhost:8080/staffs",
+      url: "/staffs",
       request: {
         method: "POST",
         mode: "cors",
@@ -148,7 +148,7 @@ function App() {
 
   const login = (user) => {
     setUrlRequest({
-      url: "http://localhost:8080/login",
+      url: "/login",
       request: {
         method: "POST",
         mode: "cors",
