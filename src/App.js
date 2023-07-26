@@ -30,6 +30,27 @@ function App() {
     action: "",
   });
 
+  //useEffect intitiate from all states changes
+  //STORAGE FUNCTIOINS
+
+  useEffect(() => {
+    // saving session on the web-browser gives opportunity reload page into same state
+    // without that it goes comeback to loginpage
+    // first passing here('true') will be just after case of action: "register" and setError's saveToStorage(tempState);
+    if (sessionStorage.getItem("state")) {
+      let state = JSON.parse(sessionStorage.getItem("state"));
+      setState(state);
+      if (state.isLogged) {
+        //after 'login' loads first time the empty getShoppList(token) after reloading the page
+        getCustomerList(state.token);
+      }
+    }
+  }, []);
+  //sessionStorage is embedded lib, first time initiated while login
+  const saveToStorage = (state) => {
+    sessionStorage.setItem("state", JSON.stringify(state));
+  };
+
   //APP STATE FUNCTIONS
 
   //update state with 'loading' status: false or true
@@ -49,7 +70,7 @@ function App() {
         ...state,
         error: error,
       };
-      /* saveToStorage(tempState); */
+      saveToStorage(tempState);
       return tempState;
     });
   };
@@ -62,7 +83,7 @@ function App() {
       loading: false,
       error: "",
     };
-    //saveToStorage(state);
+    saveToStorage(state);
     setState(state);
   };
 
@@ -78,24 +99,38 @@ function App() {
       setLoading(false);
       if (response.ok) {
         switch (urlRequest.action) {
+          case "getlist":
+            let data = await response.json();
+            setState((state) => {
+              let tempState = {
+                ...state,
+                list: data,
+              };
+              // saving the page state into sessionStorage
+              saveToStorage(tempState);
+              return tempState;
+            });
+            return;
+
           case "register":
             setError("Register success"); // methood upddates STATE with error: "Register succes" and first time saveToStorage see above
             return;
           case "login":
-            //let token = await response.json();
+            //the resp will include created on backEnd token with login & password
+            let token = await response.json();
             setState((state) => {
               // isLogged == true ,state.isLogged changes to true, see above
               // which opens other tempRender page, see below
               let tempState = {
                 ...state,
                 isLogged: true,
-                //token: token.token, // token.token, because in session is token:token
+                token: token.token, // token.token, because in resp the token is under token name
               };
               // saving the page state into sessionStorage
-              //saveToStorage(tempState);
-              return tempState;
+              saveToStorage(tempState);
+              return tempState; //just now it changes the state
             });
-            //getShoppingList(token.token);
+            getCustomerList(token.token);
             return;
           case "logout":
             clearState();
@@ -158,16 +193,34 @@ function App() {
       action: "login",
     });
   };
-  const logout = (user) => {
+  const logout = () => {
     setUrlRequest({
       url: "/logout",
       request: {
         method: "POST",
         mode: "cors",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(user),
+        headers: { "Counter-type": "application/json", token: state.token },
       },
       action: "logout",
+    });
+  };
+
+  // whether getCustomerList(null) or  getCustomerList(argument)
+  const getCustomerList = (token) => {
+    let temptoken = state.token; // it " " before 'login'
+    if (token) {
+      temptoken = token;
+    }
+
+    setUrlRequest({
+      url: "/customers",
+      request: {
+        method: "GET",
+        mode: "cors",
+        //The token is inserted into headers.
+        headers: { "Content-type": "application/json", token: temptoken },
+      },
+      action: "getlist",
     });
   };
 
@@ -183,7 +236,8 @@ function App() {
     messageArea = <h4>{state.error}</h4>;
   }
 
-  // Create temporaly XML page, which will be present on the first page of APP when isLogged: 'false' in the 'first' type of state
+  // Create temporaly XML page, which will be present on the first page of APP
+  // when isLogged: 'false' in the 'first' type of state
   let tempRender = (
     <Routes>
       <Route
@@ -200,7 +254,13 @@ function App() {
   if (state.isLogged) {
     tempRender = (
       <Routes>
-        <Route exact path="/" element={<ListCustomerComponent />} />
+        <Route
+          exact
+          path="/"
+          element={
+            <ListCustomerComponent list={state.list} errorMsg={state.error} />
+          }
+        />
         <Route path="/add-customer" element={<AddCustomerForm />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
