@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 
-const CUSTOMER_API_BASE_URL = "http://localhost:8080/customers";
+//const CUSTOMER_API_BASE_URL = "http://localhost:8080/customers";
 
 class AddCustomerForm extends Component {
   constructor(props) {
@@ -28,14 +28,20 @@ class AddCustomerForm extends Component {
     // to avoid page refreshing
     event.preventDefault();
     console.log(this.state);
-    axios
+    this.props.addCustomer(this.state);
+    this.setState({
+      customerName: "",
+      address: "",
+      email: "",
+    });
+    /* axios
       .post(CUSTOMER_API_BASE_URL, this.state)
       .then((response) => {
         console.log(response);
       })
       .catch((error) => {
         console.log(error);
-      });
+      }); */
   };
 
   cancel = (event) => {

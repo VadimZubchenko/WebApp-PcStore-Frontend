@@ -1,8 +1,11 @@
+import { React } from "react";
 import { useState } from "react";
+
 // Controlled components (form handling)
 const LoginPage = (props) => {
   // state of LoginPage
   const [state, setState] = useState({
+    isReg: false,
     login: "",
     password: "",
   });
@@ -37,8 +40,10 @@ const LoginPage = (props) => {
       props.login(user);
     }
   };
+
   //this is just for changing in return() the state.login and state.password to login and password.
   const { login, password } = state;
+
   return (
     <div style={{ width: 500, backgroundColor: "lightgreen", margin: "auto" }}>
       <form className="mb-3">

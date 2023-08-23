@@ -111,6 +111,9 @@ function App() {
               return tempState;
             });
             return;
+          case "addcustomer":
+            getCustomerList();
+            return;
 
           case "register":
             setError("Register success"); // methood upddates STATE with error: "Register succes" and first time saveToStorage see above
@@ -152,6 +155,16 @@ function App() {
             } else {
               setError(
                 "Failed to register new user. Server responded with a status:" +
+                  response.status
+              );
+            }
+            return;
+          case "login":
+            if (response.status === 400) {
+              setError("Login or password are not correct.");
+            } else {
+              setError(
+                "Failed to login user. Server responded with a status:" +
                   response.status
               );
             }
@@ -224,6 +237,20 @@ function App() {
     });
   };
 
+  // add Customers function
+  const addCustomer = (item) => {
+    setUrlRequest({
+      url: "/customers",
+      request: {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-type": "application/json", token: state.token },
+        body: JSON.stringify(item),
+      },
+      action: "addcustomer",
+    });
+  };
+
   //CONDITION RENDERING for different JSX presentation
 
   // create a 'message area' under Navbar for Informing client what being happended while different stage of requesting is
@@ -244,7 +271,12 @@ function App() {
         exact
         path="/"
         element={
-          <LoginPage setError={setError} register={register} login={login} />
+          <LoginPage
+            setError={setError}
+            register={register}
+            login={login}
+            clearState={clearState}
+          />
         }
       />
       <Route path="*" element={<Navigate to="/" />} />
@@ -261,7 +293,10 @@ function App() {
             <ListCustomerComponent list={state.list} errorMsg={state.error} />
           }
         />
-        <Route path="/add-customer" element={<AddCustomerForm />} />
+        <Route
+          path="/add-customer"
+          element={<AddCustomerForm addCustomer={addCustomer} />}
+        />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
