@@ -183,7 +183,7 @@ function App() {
   const register = (user) => {
     // change second state of 'urlRequest', that makes to trigger component updating with useEffect()
     setUrlRequest({
-      url: "/staffs",
+      url: "/registration",
       request: {
         method: "POST",
         mode: "cors",
@@ -269,17 +269,12 @@ function App() {
     <Routes>
       <Route
         exact
-        path="/"
+        path="/login"
         element={
-          <LoginPage
-            setError={setError}
-            register={register}
-            login={login}
-            clearState={clearState}
-          />
+          <LoginPage setError={setError} register={register} login={login} />
         }
       />
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
   // this part XML will be loaded when user is already logged and isLogged change to true in the 'first' type of state
@@ -288,7 +283,7 @@ function App() {
       <Routes>
         <Route
           exact
-          path="/"
+          path="/customers"
           element={
             <ListCustomerComponent list={state.list} errorMsg={state.error} />
           }
@@ -297,7 +292,7 @@ function App() {
           path="/add-customer"
           element={<AddCustomerForm addCustomer={addCustomer} />}
         />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/customers" />} />
       </Routes>
     );
   }
