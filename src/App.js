@@ -30,7 +30,7 @@ function App() {
     action: "",
   });
 
-  //useEffect intitiate from all states changes
+  //useEffect being intitiated from all states changes
   //STORAGE FUNCTIOINS
 
   useEffect(() => {
@@ -269,12 +269,12 @@ function App() {
     <Routes>
       <Route
         exact
-        path="/login"
+        path="/"
         element={
           <LoginPage setError={setError} register={register} login={login} />
         }
       />
-      <Route path="*" element={<Navigate to="/login" />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
   // this part XML will be loaded when user is already logged and isLogged change to true in the 'first' type of state
@@ -283,16 +283,16 @@ function App() {
       <Routes>
         <Route
           exact
-          path="/customers"
+          path="/"
           element={
             <ListCustomerComponent list={state.list} errorMsg={state.error} />
           }
         />
         <Route
-          path="/add-customer"
+          path="/"
           element={<AddCustomerForm addCustomer={addCustomer} />}
         />
-        <Route path="*" element={<Navigate to="/customers" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
   }

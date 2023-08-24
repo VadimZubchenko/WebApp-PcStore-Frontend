@@ -10,15 +10,19 @@ const LoginPage = (props) => {
   // state of LoginPage
   const [state, setState] = useState({
     isReg: false,
+    staffName: "",
     login: "",
     password: "",
+    confirmPassword: "",
   });
 
   //useEffect being intitiated if 'isReg' state changes
   useEffect(() => {}, [state.isReg]);
 
+  //function which changes a type of form for login/reg
   const changeToReg = (event) => {
     if (event.target.name === "toRegForm") {
+      event.preventDefault();
       props.setError("Registration form");
       setState((state) => {
         return {
@@ -28,6 +32,7 @@ const LoginPage = (props) => {
       });
     }
     if (event.target.name === "toLogForm") {
+      event.preventDefault();
       props.setError("Authorization form");
       setState((state) => {
         return {
@@ -63,8 +68,14 @@ const LoginPage = (props) => {
       login: state.login,
       password: state.password,
     };
+    let newUser = {
+      staffName: state.staffName,
+      login: state.login,
+      password: state.password,
+      confirmPassword: state.confirmPassword,
+    };
     if (event.target.name === "register") {
-      props.register(user);
+      props.register(newUser);
     } else {
       props.login(user);
     }
@@ -72,7 +83,7 @@ const LoginPage = (props) => {
 
   console.log("Registration state:" + state.isReg);
   //this is just for changing in return() the state.login and state.password to login and password.
-  const { login, password } = state;
+  const { staffName, login, password, confirmPassword } = state;
 
   let tempForm = (
     <Container
@@ -145,12 +156,24 @@ const LoginPage = (props) => {
           <h2>Registration</h2>
           <div
             style={{
-              width: 500,
+              width: 400,
               backgroundColor: "lightgreen",
               margin: "auto",
             }}
           >
             <Form className="d-flex flex-column">
+              <label htmlFor="staffName" className="form-label">
+                Name
+              </label>
+              <FormControl
+                type="text"
+                name="staffName"
+                id="staffName"
+                className="mt-3"
+                placeholder="Enter your name..."
+                onChange={onChange}
+                value={staffName}
+              />
               <label htmlFor="login" className="form-label">
                 Login
               </label>
@@ -174,6 +197,18 @@ const LoginPage = (props) => {
                 placeholder="Enter your password"
                 onChange={onChange}
                 value={password}
+              />
+              <label htmlFor="confirmPassword" className="form-label">
+                Confirm password
+              </label>
+              <FormControl
+                type="confirmPassword"
+                name="confirmPassword"
+                id="confirmPassword"
+                className="mt-3"
+                placeholder="Repeat your password"
+                onChange={onChange}
+                value={confirmPassword}
               />
               <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                 <Button
