@@ -59,7 +59,7 @@ const LoginPage = (props) => {
     if (state.login.length < 4 || state.password.length < 8) {
       // the message will appear in messageArea of App's component by changig state's parameter 3setError=(error)
       props.setError(
-        "login needs to be at least four and password eight characters long"
+        "Login needs to be at least four and password eight characters long"
       );
       return;
     }
@@ -85,17 +85,34 @@ const LoginPage = (props) => {
   //this is just for changing in return() the state.login and state.password to login and password.
   const { staffName, login, password, confirmPassword } = state;
 
-  let tempForm = (
+  return (
     <Container
       className="d-flex justify-content-center align-items-center"
-      style={{ height: window.innerHeight - 60 }}
+      style={{ height: window.innerHeight - 70 }}
     >
-      <Card style={{ width: 600 }} className="p-5">
-        <h2>Authorization</h2>
+      <Card style={{ width: 500 }} className="p-5">
+        <h2>{state.isReg ? "Registration" : "Authorization"}</h2>
         <div
           style={{ width: 400, backgroundColor: "lightgreen", margin: "auto" }}
         >
           <Form className="d-flex flex-column">
+            {state.isReg && (
+              <label htmlFor="staffName" className="form-label">
+                Name
+              </label>
+            )}
+            {state.isReg && (
+              <FormControl
+                type="text"
+                name="staffName"
+                id="staffName"
+                className="mt-3"
+                placeholder="Enter your name..."
+                onChange={onChange}
+                value={staffName}
+              />
+            )}
+
             <label htmlFor="login" className="form-label">
               Login
             </label>
@@ -120,87 +137,12 @@ const LoginPage = (props) => {
               onChange={onChange}
               value={password}
             />
-            <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
-              <Button
-                variant={"outline-success"}
-                className="btn btn-primary"
-                name="toRegForm"
-                onClick={changeToReg}
-                style={{ marginLeft: 10 }}
-              >
-                Register
-              </Button>
-              <Button
-                variant={"outline-success"}
-                className="btn btn-primary"
-                name="login"
-                onClick={onSubmit}
-                style={{ marginRight: 10 }}
-              >
-                SingIn
-              </Button>
-            </Row>
-          </Form>
-        </div>
-      </Card>
-    </Container>
-  );
-
-  if (state.isReg) {
-    tempForm = (
-      <Container
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: window.innerHeight - 60 }}
-      >
-        <Card style={{ width: 600 }} className="p-5">
-          <h2>Registration</h2>
-          <div
-            style={{
-              width: 400,
-              backgroundColor: "lightgreen",
-              margin: "auto",
-            }}
-          >
-            <Form className="d-flex flex-column">
-              <label htmlFor="staffName" className="form-label">
-                Name
-              </label>
-              <FormControl
-                type="text"
-                name="staffName"
-                id="staffName"
-                className="mt-3"
-                placeholder="Enter your name..."
-                onChange={onChange}
-                value={staffName}
-              />
-              <label htmlFor="login" className="form-label">
-                Login
-              </label>
-              <FormControl
-                type="text"
-                name="login"
-                id="login"
-                className="mt-3"
-                placeholder="Enter your login..."
-                onChange={onChange}
-                value={login}
-              />
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <FormControl
-                type="password"
-                name="password"
-                id="password"
-                className="mt-3"
-                placeholder="Enter your password"
-                onChange={onChange}
-                value={password}
-              />
+            {state.isReg && (
               <label htmlFor="confirmPassword" className="form-label">
                 Confirm password
               </label>
+            )}
+            {state.isReg && (
               <FormControl
                 type="confirmPassword"
                 name="confirmPassword"
@@ -210,34 +152,32 @@ const LoginPage = (props) => {
                 onChange={onChange}
                 value={confirmPassword}
               />
-              <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
-                <Button
-                  variant={"outline-success"}
-                  className="btn btn-primary"
-                  name="toLogForm"
-                  onClick={changeToReg}
-                  style={{ marginLeft: 10 }}
-                >
-                  SingIn
-                </Button>
-                <Button
-                  variant={"outline-success"}
-                  className="btn btn-primary"
-                  name="register"
-                  onClick={onSubmit}
-                  style={{ marginRight: 10 }}
-                >
-                  Register
-                </Button>
-              </Row>
-            </Form>
-          </div>
-        </Card>
-      </Container>
-    );
-  }
-
-  return <div>{tempForm}</div>;
+            )}
+            <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
+              <Button
+                variant={"outline-success"}
+                className="btn btn-primary"
+                name={state.isReg ? "toLogForm" : "toRegForm"}
+                onClick={changeToReg}
+                style={{ marginLeft: 10 }}
+              >
+                {state.isReg ? "to SingIn" : "to Register"}
+              </Button>
+              <Button
+                variant={"outline-success"}
+                className="btn btn-primary"
+                name={state.isReg ? "register" : "login"}
+                onClick={onSubmit}
+                style={{ marginRight: 10 }}
+              >
+                {state.isReg ? "Register" : "SignIn"}
+              </Button>
+            </Row>
+          </Form>
+        </div>
+      </Card>
+    </Container>
+  );
 };
 
 export default LoginPage;
