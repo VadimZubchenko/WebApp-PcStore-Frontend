@@ -289,7 +289,7 @@ function App() {
           }
         />
         <Route
-          path="/"
+          path="/add-customer"
           element={<AddCustomerForm addCustomer={addCustomer} />}
         />
         <Route path="*" element={<Navigate to="/" />} />

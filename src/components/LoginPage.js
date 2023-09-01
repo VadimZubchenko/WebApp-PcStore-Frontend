@@ -22,7 +22,6 @@ const LoginPage = (props) => {
   //function which changes a type of form for login/reg
   const changeToReg = (event) => {
     if (event.target.name === "toRegForm") {
-      event.preventDefault();
       props.setError("Registration form");
       setState((state) => {
         return {
@@ -32,7 +31,6 @@ const LoginPage = (props) => {
       });
     }
     if (event.target.name === "toLogForm") {
-      event.preventDefault();
       props.setError("Authorization form");
       setState((state) => {
         return {
@@ -63,6 +61,7 @@ const LoginPage = (props) => {
       );
       return;
     }
+
     // create object 'user' from values of state
     let user = {
       login: state.login,
@@ -76,12 +75,14 @@ const LoginPage = (props) => {
     };
     if (event.target.name === "register") {
       props.register(newUser);
+      console.log("befor: " + state.staffName);
+
+      console.log("after: " + state.staffName);
     } else {
       props.login(user);
     }
   };
 
-  console.log("Registration state:" + state.isReg);
   //this is just for changing in return() the state.login and state.password to login and password.
   const { staffName, login, password, confirmPassword } = state;
 
@@ -144,7 +145,7 @@ const LoginPage = (props) => {
             )}
             {state.isReg && (
               <FormControl
-                type="confirmPassword"
+                type="password"
                 name="confirmPassword"
                 id="confirmPassword"
                 className="mt-3"
@@ -170,7 +171,7 @@ const LoginPage = (props) => {
                 onClick={onSubmit}
                 style={{ marginRight: 10 }}
               >
-                {state.isReg ? "Register" : "SignIn"}
+                {state.isReg ? "Register" : "Sign in"}
               </Button>
             </Row>
           </Form>
