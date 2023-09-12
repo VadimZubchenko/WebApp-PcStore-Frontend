@@ -9,9 +9,10 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import LoginPage from "./components/LoginPage";
-import ListCustomerComponent from "./components/ListCustomerComponent";
+import LoginPage from "./pages/LoginPage";
+import ListCustomerComponent from "./components/CustomerListComponent";
 import AddCustomerForm from "./components/AddCustomerForm";
+import ShopPage from "./pages/ShopPage";
 
 function App() {
   // Create first state with staff list, token and error for showing a message of processing
@@ -42,7 +43,7 @@ function App() {
       setState(state);
       if (state.isLogged) {
         //after 'login' loads first time the empty getShoppList(token) after reloading the page
-        getCustomerList(state.token);
+        getPartList(state.token);
       }
     }
   }, []);
@@ -112,7 +113,7 @@ function App() {
             });
             return;
           case "addcustomer":
-            getCustomerList();
+            getPartList();
             return;
 
           case "register":
@@ -133,7 +134,7 @@ function App() {
               saveToStorage(tempState);
               return tempState; //just now it changes the state
             });
-            getCustomerList(token.token);
+            getPartList(token.token);
             return;
           case "logout":
             clearState();
@@ -218,15 +219,15 @@ function App() {
     });
   };
 
-  // whether getCustomerList(null) or  getCustomerList(argument)
-  const getCustomerList = (token) => {
-    let temptoken = state.token; // it " " before 'login'
+  // whether getPartList(null) or  getPartList(argument)
+  const getPartList = (token) => {
+    let temptoken = state.token; // it "null " before 'login'
     if (token) {
       temptoken = token;
     }
 
     setUrlRequest({
-      url: "/customers",
+      url: "/parts",
       request: {
         method: "GET",
         mode: "cors",
@@ -285,7 +286,8 @@ function App() {
           exact
           path="/"
           element={
-            <ListCustomerComponent list={state.list} errorMsg={state.error} />
+            //<ListCustomerComponent list={state.list} errorMsg={state.error} />
+            <ShopPage list={state.list} errorMsg={state.error} />
           }
         />
         <Route
