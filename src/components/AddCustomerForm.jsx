@@ -57,7 +57,7 @@ class AddCustomerForm extends Component {
     const { customerName, address, email } = this.state;
     return (
       <div className="contaner">
-        <div className="raw">
+        <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
             <h3 className="text-center">Add Customer</h3>
             <div className="card-body">

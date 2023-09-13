@@ -43,6 +43,28 @@
   width: 100%;
   background-color: grey;
   color: white;
-  text-align: center;
+  text-align: center; 
+
+}
+table {
+  border: 2px solid teal;
+}
+
+tr {
+  border: 0px;
+  border-bottom: 2px solid teal;
+}
+
+.clickable-row {
+  cursor: pointer;
+  height: 40px;
+}
+
+.clickable-row:hover {
+  background-color: aquamarine;
+}
+
+.selected, .selected:hover {
+  background-color: aqua;
 }
 

@@ -1,19 +1,16 @@
-import { Container } from "react-bootstrap";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import ListCustomerComponent from "../components/CustomerListComponent";
 import ListPartComponent from "../components/PartListComponent";
 
 const ShopPage = (props) => {
   return (
-    <div class="container-fluid">
+    <div className="container-fluid">
       <div className="row">
-        <div className="col">
+        <div className="col-md-4 offset-md-1 offset-md-1">
           <ListPartComponent list={props.list} errorMsg={props.error} />
         </div>
-        <div className="col">Second Column</div>
-        <div className="col">
-          <ListCustomerComponent list={props.list} errorMsg={props.error} />
+        <div className="col-md-4 offset-md-1 offset-md-2">
+          <h3 className="text-center">TABLE II</h3>
+          {/* <ListCustomerComponent list={props.list} errorMsg={props.error} /> */}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import React from "react";
 import Row from "react-bootstrap/Row";
 
 const ListCustomerComponent = (props) => {
@@ -6,29 +7,31 @@ const ListCustomerComponent = (props) => {
       <div>
         <h2 className="text-center">Customers List</h2>
         <div className="row">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Customer ID</th>
-                <th>Customer Name</th>
-                <th>Customer Address</th>
-                <th>Customer Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {props.list.length
-                ? props.list.map((customer) => (
-                    <tr key={customer.customerID}>
-                      <td>{customer.customerID}</td>
-                      <td>{customer.customerName}</td>
-                      <td>{customer.address}</td>
-                      <td>{customer.email}</td>
-                    </tr>
-                  ))
-                : null}
-            </tbody>
-          </table>
+          <div className="card">
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Customer Name</th>
+                  <th>Customer Address</th>
+                  <th>Customer Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {props.list.length
+                  ? props.list.map((customer) => (
+                      <tr key={customer.customerID}>
+                        <td>{customer.customerID}</td>
+                        <td>{customer.customerName}</td>
+                        <td>{customer.address}</td>
+                        <td>{customer.email}</td>
+                      </tr>
+                    ))
+                  : null}
+              </tbody>
+            </table>
+          </div>
         </div>
         {props.errorMsg ? <div>{props.errorMsg}</div> : null}
       </div>

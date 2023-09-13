@@ -6,10 +6,10 @@ const Navbar = (props) => {
     links = (
       <ul className="navbar-nav">
         <li className="nav-item active">
-          <Link to="/customers">Customers List</Link>
+          <Link to="/parts">Make Order</Link>
         </li>
         <li className="nav-item" style={{ marginLeft: 5 }}>
-          <Link to="/add-customer">Add new customer</Link>
+          <Link to="/add-customer">Add Customer</Link>
         </li>
         <li className="nav-item" style={{ marginLeft: 5 }}>
           <Link to="/logout" onClick={props.logout}>
