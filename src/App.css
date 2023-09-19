@@ -68,3 +68,81 @@ tr {
   background-color: aqua;
 }
 
+/*order quantity increment decrement  */
+.quantity-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border-radius: 3px;
+  
+  &:focus {
+    background-color: red;
+  }
+}
+
+.quantity-input__modifier,
+.quantity-input__screen {
+  user-select: none;
+  outline: none;
+}
+
+.quantity-input__modifier {
+  padding: .5rem;
+  width: 7rem;
+  font-size: 1.5rem;
+  
+  background: #f3f3f3;
+  color: #888;
+  border: 0 solid #dbdbdb;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(#fff, .6);
+  
+  cursor: pointer;
+  
+  &:hover {
+    background: darken(#f3f3f3, 10%);
+    color: darken(#888, 20%)
+  }
+  
+  &--left {
+    border-radius: 3px 0 0 3px;
+  }
+  
+  &--right {
+    border-radius: 3px 0 0 3px;
+  }
+}
+
+.quantity-input__screen {
+  width: 7rem;
+  padding: .5rem;
+  font-size: 1.5rem;
+  
+  border: 0;
+  border-top: 0 solid #dbdbdb;
+  border-bottom: 0 solid #dbdbdb;
+  text-align: center;
+}
+
+
+
+body {
+  width: flex;
+  height: flex;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+  background: #e2e1e0;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+
+

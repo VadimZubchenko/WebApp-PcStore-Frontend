@@ -7,11 +7,11 @@ import { Container, Row, Col } from "react-bootstrap";
 const ShopPage = (props) => {
   return (
     <Container>
-      <Row className="d-flex">
-        <Col md={5}>
+      <Row>
+        <Col>
           <PartListComponent list={props.list} errorMsg={props.error} />
         </Col>
-        <Col md={7}>
+        <Col>
           <OrderListComponent />
         </Col>
       </Row>
