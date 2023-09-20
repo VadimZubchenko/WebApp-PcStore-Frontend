@@ -6,15 +6,13 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const ShopPage = (props) => {
   return (
-    <Container>
-      <Row>
-        <Col>
-          <PartListComponent list={props.list} errorMsg={props.error} />
-        </Col>
-        <Col>
-          <OrderListComponent />
-        </Col>
-      </Row>
+    <Container className="container-fluid">
+      <Col className="partsZone">
+        <PartListComponent list={props.list} errorMsg={props.error} />
+      </Col>
+      <Col className="orderZone">
+        <OrderListComponent />
+      </Col>
     </Container>
   );
 };

@@ -89,7 +89,7 @@ const LoginPage = (props) => {
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
-      style={{ height: window.innerHeight - 70 }}
+      style={{ height: window.innerHeight - 150 }}
     >
       <Card style={{ width: 500 }} className="p-5">
         <h2>{state.isReg ? "Registration" : "Authorization"}</h2>

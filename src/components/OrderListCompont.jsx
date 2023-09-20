@@ -39,17 +39,16 @@ const OrderListComponent = observer(() => {
   };
 
   return (
-    <Container>
-      <div>
-        <div>
-          <button
-            type="button"
-            className="btn btn-outline-primary quantity-input__screen"
-            onClick={addPart}
-          >
-            Add part
-          </button>
-        </div>
+    <div>
+      <div className="selector">
+        <button
+          type="button"
+          className="quantity-input__modifier btn btn-outline-primary quantity-input__screen"
+          onClick={addPart}
+        >
+          Add part
+        </button>
+
         <h2>Set the quantity</h2>
         <button
           className="quantity-input__modifier quantity-input__modifier--left"
@@ -76,40 +75,42 @@ const OrderListComponent = observer(() => {
           value={summa.value}
           readOnly
         />
-
-        <Container></Container>
-        <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
-          <h2 className="text-center">Order</h2>
-          <table
-            className="table table-striped"
-            onClick={() => console.log(order.length)}
-          >
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Part Name</th>
-                <th>Part Type</th>
-                <th>Par Quantity</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {order.length
-                ? order.map((part) => (
-                    <tr key={part.partID}>
-                      <td>{part.partID}</td>
-                      <td>{part.partName}</td>
-                      <td>{part.partType}</td>
-                      <td>{part.partQuantity}</td>
-                      <td>{part.partPrice}</td>
-                    </tr>
-                  ))
-                : null}
-            </tbody>
-          </table>
-        </div>
       </div>
-    </Container>
+
+      <div
+        className="orderTable ag-theme-alpine"
+        style={{ height: 400, width: 600 }}
+      >
+        <h2 className="text-center">Order</h2>
+        <table
+          className="table table-striped"
+          onClick={() => console.log(order.length)}
+        >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Part Name</th>
+              <th>Part Type</th>
+              <th>Par Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {order.length
+              ? order.map((part) => (
+                  <tr key={part.partID}>
+                    <td>{part.partID}</td>
+                    <td>{part.partName}</td>
+                    <td>{part.partType}</td>
+                    <td>{part.partQuantity}</td>
+                    <td>{part.partPrice}</td>
+                  </tr>
+                ))
+              : null}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 });
 

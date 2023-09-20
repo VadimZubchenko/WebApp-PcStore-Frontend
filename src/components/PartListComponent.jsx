@@ -10,9 +10,12 @@ const PartListComponent = observer((props) => {
   //const [selectedRow, setSelectedRow] = React.useState(-1);
 
   return (
-    <div>
+    <div
+      className="orderTable ag-theme-alpine"
+      style={{ height: 400, width: 600 }}
+    >
       <h2 className="text-center">Parts</h2>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>Part ID</th>
