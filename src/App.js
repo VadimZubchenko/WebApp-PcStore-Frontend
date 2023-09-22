@@ -287,7 +287,11 @@ function App() {
           path="/"
           element={
             //<ListCustomerComponent list={state.list} errorMsg={state.error} />
-            <ShopPage list={state.list} errorMsg={state.error} />
+            <ShopPage
+              addCustomer={addCustomer}
+              list={state.list}
+              errorMsg={state.error}
+            />
           }
         />
         <Route

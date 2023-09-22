@@ -1,35 +1,36 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 // import axios from "axios";
 
 //const CUSTOMER_API_BASE_URL = "http://localhost:8080/customers";
 
-class AddCustomerForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      customerName: "",
-      address: "",
-      email: "",
-    };
-  }
+const AddCustomerForm = (props) => {
+  const [state, setState] = useState({
+    customerName: "",
+    address: "",
+    email: "",
+  });
 
   /* create a class property with arrow function, that doesn't have own 'this.'
      and uses object of includes this arrow function class.
     It makes possible to avoid binding the arrow function in constructor */
-  changeHandler = (event) => {
+  const changeHandler = (event) => {
     /* 1. no need separates handlers for differents input elements,
           because [event.target.name] takes the names of state from 'name' attribute in XML 
       2. extract the input element from event parameter */
-    this.setState({ [event.target.name]: event.target.value });
+    setState((state) => {
+      return {
+        ...state,
+        [event.target.name]: event.target.value,
+      };
+    });
   };
 
-  saveCustomer = (event) => {
+  const saveCustomer = (event) => {
     // to avoid page refreshing
     event.preventDefault();
-    console.log(this.state);
-    this.props.addCustomer(this.state);
-    this.setState({
+    console.log(state);
+    props.addCustomer(state);
+    setState({
       customerName: "",
       address: "",
       email: "",
@@ -44,72 +45,64 @@ class AddCustomerForm extends Component {
       }); */
   };
 
-  cancel = (event) => {
+  const cancel = (event) => {
     event.preventDefault();
-    this.setState({
+    setState({
       customerName: "",
       address: "",
       email: "",
     });
   };
 
-  render() {
-    const { customerName, address, email } = this.state;
-    return (
-      <div className="contaner">
-        <div className="row">
-          <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">Add Customer</h3>
-            <div className="card-body">
-              <div className="form-group">
-                <label htmlFor="customerName">Name:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="customerName"
-                  placeholder="Full name"
-                  name="customerName"
-                  value={customerName}
-                  /* onChange make possible user to write text on input element */
-                  onChange={this.changeHandler}
-                />
-                <label htmlFor="address">Address:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="address"
-                  placeholder="address"
-                  name="address"
-                  value={address}
-                  onChange={this.changeHandler}
-                />
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="email "
-                  name="email"
-                  value={email}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <button className="btn btn-success" onClick={this.saveCustomer}>
-                Save
-              </button>
-              <button
-                className="btn btn-danger"
-                onClick={this.cancel}
-                style={{ marginLeft: "10px" }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+  const { customerName, address, email } = state;
+  return (
+    <div
+      className="customerForm ag-theme-alpine position-relative"
+      style={{ height: 300, width: 600 }}
+    >
+      <div className="card-body">
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Full name"
+            name="customerName"
+            value={customerName}
+            /* onChange make possible user to write text on input element */
+            onChange={changeHandler}
+          />
+
+          <input
+            type="text"
+            className="form-control"
+            placeholder="address"
+            name="address"
+            value={address}
+            onChange={changeHandler}
+          />
+
+          <input
+            type="email"
+            className="form-control"
+            placeholder="email "
+            name="email"
+            value={email}
+            onChange={changeHandler}
+          />
         </div>
+        <button className="btn btn-success" onClick={saveCustomer}>
+          Create order
+        </button>
+        <button
+          className="btn btn-danger"
+          onClick={cancel}
+          style={{ marginLeft: "10px" }}
+        >
+          Cancel
+        </button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default AddCustomerForm;
