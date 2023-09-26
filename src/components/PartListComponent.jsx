@@ -15,7 +15,7 @@ const PartListComponent = observer((props) => {
       style={{ height: 300, width: 600 }}
     >
       <h2 className="text-center">Parts</h2>
-      <table className="table">
+      <table className="table table-borderless">
         <thead>
           <tr>
             <th>Part ID</th>

@@ -1,25 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-
 import "../App.css";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
 
-let nextID = 0;
+let nextID = 1;
+
 const OrderListComponent = observer(() => {
   const { parts } = useContext(Context);
 
-  const [order, setOrder] = useState([]);
-  const [stockQuantity, setQuantity] = useState({ value: 1 });
+  const [orderedParts, setOrderedParts] = useState([]);
+  const [orderedQuantity, setQuantity] = useState({ value: 1 });
   const [summa, setSumma] = useState({ value: 0 });
+  const [order, setOrder] = useState({
+    staff: "",
+    totalPrice: "",
+    customer: [],
+    orderedParts: [],
+  });
 
   const increment = () => {
-    setQuantity({ value: ++stockQuantity.value });
+    setQuantity({ value: ++orderedQuantity.value });
   };
   const decrement = () => {
     setQuantity({
-      value: stockQuantity.value > 1 ? --stockQuantity.value : 1,
+      value: orderedQuantity.value > 1 ? --orderedQuantity.value : 1,
     });
   };
 
@@ -28,14 +33,27 @@ const OrderListComponent = observer(() => {
       partID: nextID++,
       partName: parts.selectedPart.partName,
       partType: parts.selectedPart.partType,
-      partQuantity: stockQuantity.value,
+      partQuantity: orderedQuantity.value,
       partPrice: parts.selectedPart.partPrice,
     };
-    setOrder([...order, rowPart]);
-
+    setOrderedParts([...orderedParts, rowPart]);
     setSumma({
-      value: summa.value + parts.selectedPart.partPrice * stockQuantity.value,
+      value: summa.value + parts.selectedPart.partPrice * orderedQuantity.value,
     });
+  };
+  const createOrder = () => {
+    let customer = {
+      custName: parts.newCustomer.customerName,
+      custAddress: parts.newCustomer.address,
+      custEmail: parts.newCustomer.email,
+    };
+    setOrder({
+      staff: "Admin_Seller",
+      totalPrice: summa.value,
+      customer: [customer],
+      orderedParts: [orderedParts],
+    });
+    console.log(order);
   };
 
   return (
@@ -59,7 +77,7 @@ const OrderListComponent = observer(() => {
         <input
           className="quantity-input__screen"
           type="text"
-          value={stockQuantity.value}
+          value={orderedQuantity.value}
           readOnly
         />
         <button
@@ -83,7 +101,7 @@ const OrderListComponent = observer(() => {
       >
         <h2 className="text-center">Order</h2>
         <table
-          className="table table-striped"
+          className="table table-striped table-borderless"
           onClick={() => console.log(order.length)}
         >
           <thead>
@@ -96,8 +114,8 @@ const OrderListComponent = observer(() => {
             </tr>
           </thead>
           <tbody>
-            {order.length
-              ? order.map((part) => (
+            {orderedParts.length
+              ? orderedParts.map((part) => (
                   <tr key={part.partID}>
                     <td>{part.partID}</td>
                     <td>{part.partName}</td>
@@ -109,6 +127,13 @@ const OrderListComponent = observer(() => {
               : null}
           </tbody>
         </table>
+        <button
+          type="button"
+          className="quantity-input__modifier btn btn-outline-primary quantity-input__screen"
+          onClick={createOrder}
+        >
+          Do Order
+        </button>
       </div>
     </div>
   );

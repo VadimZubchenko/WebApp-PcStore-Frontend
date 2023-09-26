@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../index";
+import { observer } from "mobx-react-lite";
 // import axios from "axios";
 
 //const CUSTOMER_API_BASE_URL = "http://localhost:8080/customers";
 
-const AddCustomerForm = (props) => {
+const AddCustomerForm = observer((props) => {
+  const { parts } = useContext(Context);
+
   const [state, setState] = useState({
     customerName: "",
     address: "",
@@ -24,25 +28,20 @@ const AddCustomerForm = (props) => {
       };
     });
   };
-
+  // TO DO: creating and post Order (Object customer, staff(?: ID or Object), Double totalPrice)
+  // !!! order_service to be change to be received a customer- and staff-objects on backEnd-side
+  // !!! POST list of parts taken from '{ parts } = useContext(Context)';
   const saveCustomer = (event) => {
     // to avoid page refreshing
     event.preventDefault();
     console.log(state);
-    props.addCustomer(state);
+    //props.addCustomer(state);
+    parts.setNewCustomer(state);
     setState({
       customerName: "",
       address: "",
       email: "",
     });
-    /* axios
-      .post(CUSTOMER_API_BASE_URL, this.state)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      }); */
   };
 
   const cancel = (event) => {
@@ -103,6 +102,6 @@ const AddCustomerForm = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default AddCustomerForm;
