@@ -31,18 +31,19 @@ const AddCustomerForm = observer((props) => {
   // TO DO: creating and post Order (Object customer, staff(?: ID or Object), Double totalPrice)
   // !!! order_service to be change to be received a customer- and staff-objects on backEnd-side
   // !!! POST list of parts taken from '{ parts } = useContext(Context)';
-  const saveCustomer = (event) => {
+  /* const saveCustomer = (event) => {
     // to avoid page refreshing
     event.preventDefault();
     console.log(state);
-    //props.addCustomer(state);
+    props.addCustomer(state);
+    // save customer to localStore
     parts.setNewCustomer(state);
     setState({
       customerName: "",
       address: "",
       email: "",
     });
-  };
+  }; */
 
   const cancel = (event) => {
     event.preventDefault();
@@ -52,6 +53,9 @@ const AddCustomerForm = observer((props) => {
       email: "",
     });
   };
+  useEffect(() => {
+    parts.setNewCustomer(state);
+  }, [state]);
 
   const { customerName, address, email } = state;
   return (
@@ -89,9 +93,9 @@ const AddCustomerForm = observer((props) => {
             onChange={changeHandler}
           />
         </div>
-        <button className="btn btn-success" onClick={saveCustomer}>
+        {/* <button className="btn btn-success" onClick={saveCustomer}>
           Create order
-        </button>
+        </button> */}
         <button
           className="btn btn-danger"
           onClick={cancel}

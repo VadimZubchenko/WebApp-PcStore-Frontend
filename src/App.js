@@ -115,6 +115,9 @@ function App() {
           case "addcustomer":
             getPartList();
             return;
+          case "addOrder":
+            getPartList();
+            return;
 
           case "register":
             setError("Register success"); // methood upddates STATE with error: "Register succes" and first time saveToStorage see above
@@ -251,6 +254,19 @@ function App() {
       action: "addcustomer",
     });
   };
+  //addOrder
+  const addOrder = (item) => {
+    setUrlRequest({
+      url: "/orders",
+      request: {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-type": "application/json", token: state.token },
+        body: JSON.stringify(item),
+      },
+      action: "addOrder",
+    });
+  };
 
   //CONDITION RENDERING for different JSX presentation
 
@@ -288,7 +304,7 @@ function App() {
           element={
             //<ListCustomerComponent list={state.list} errorMsg={state.error} />
             <ShopPage
-              addCustomer={addCustomer}
+              addOrder={addOrder}
               list={state.list}
               errorMsg={state.error}
             />

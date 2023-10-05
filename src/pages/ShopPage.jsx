@@ -2,7 +2,7 @@
 import React from "react";
 import OrderListComponent from "../components/OrderListCompont";
 import PartListComponent from "../components/PartListComponent";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Col } from "react-bootstrap";
 import AddCustomerForm from "../components/AddCustomerForm";
 
 const ShopPage = (props) => {
@@ -10,10 +10,10 @@ const ShopPage = (props) => {
     <Container className="container-fluid">
       <Col className="partsZone">
         <PartListComponent list={props.list} errorMsg={props.error} />
-        <AddCustomerForm addCustomer={props.addCustomer} />
+        <AddCustomerForm />
       </Col>
       <Col className="orderZone">
-        <OrderListComponent />
+        <OrderListComponent addOrder={props.addOrder} />
       </Col>
     </Container>
   );

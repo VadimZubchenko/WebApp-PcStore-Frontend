@@ -4,13 +4,17 @@ import { Context } from "../index";
 import "../App.css";
 import { useState } from "react";
 
-let nextID = 1;
+let nextID = 0;
 
-const OrderListComponent = observer(() => {
+const OrderListComponent = observer((props) => {
   const { parts } = useContext(Context);
-
+  // set selected parts
   const [orderedParts, setOrderedParts] = useState([]);
-  const [orderedQuantity, setQuantity] = useState({ value: 1 });
+  // set partDetails to the POST id/quantity of selected part
+  const [partDetails, setPartDetail] = useState([]);
+  const [orderedQuantity, setQuantity] = useState({
+    value: 1,
+  });
   const [summa, setSumma] = useState({ value: 0 });
   const [order, setOrder] = useState({
     staff: "",
@@ -30,31 +34,54 @@ const OrderListComponent = observer(() => {
 
   const addPart = () => {
     let rowPart = {
-      partID: nextID++,
+      ID: nextID++,
+      partID: parts.selectedPart.partID,
       partName: parts.selectedPart.partName,
       partType: parts.selectedPart.partType,
       partQuantity: orderedQuantity.value,
       partPrice: parts.selectedPart.partPrice,
     };
     setOrderedParts([...orderedParts, rowPart]);
+    setPartDetail([
+      ...partDetails,
+      {
+        partID: rowPart.partID,
+        partQuantity: rowPart.partQuantity,
+        partPrice: rowPart.partPrice,
+      },
+    ]);
     setSumma({
       value: summa.value + parts.selectedPart.partPrice * orderedQuantity.value,
     });
   };
   const createOrder = () => {
     let customer = {
-      custName: parts.newCustomer.customerName,
-      custAddress: parts.newCustomer.address,
-      custEmail: parts.newCustomer.email,
+      customerName: parts.newCustomer.customerName,
+      address: parts.newCustomer.address,
+      email: parts.newCustomer.email,
     };
     setOrder({
       staff: "Admin_Seller",
       totalPrice: summa.value,
       customer: [customer],
-      orderedParts: [orderedParts],
+      orderedParts: [partDetails],
     });
+    props.addOrder(order);
     console.log(order);
   };
+
+  const cancel = () => {
+    setSumma({ value: 0 });
+    setOrderedParts([]);
+    setQuantity({ value: 1 });
+  };
+
+  useEffect(() => {
+    if (!order.totalPrice) {
+      return;
+    }
+    createOrder();
+  }, [order.totalPrice]);
 
   return (
     <div>
@@ -116,7 +143,7 @@ const OrderListComponent = observer(() => {
           <tbody>
             {orderedParts.length
               ? orderedParts.map((part) => (
-                  <tr key={part.partID}>
+                  <tr key={part.ID}>
                     <td>{part.partID}</td>
                     <td>{part.partName}</td>
                     <td>{part.partType}</td>
@@ -129,10 +156,19 @@ const OrderListComponent = observer(() => {
         </table>
         <button
           type="button"
-          className="quantity-input__modifier btn btn-outline-primary quantity-input__screen"
+          className="btn btn-success"
           onClick={createOrder}
+          style={{ marginLeft: "20px" }}
         >
           Do Order
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={cancel}
+          style={{ marginLeft: "20px" }}
+        >
+          Cancel
         </button>
       </div>
     </div>
