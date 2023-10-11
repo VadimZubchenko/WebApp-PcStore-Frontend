@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(20px + 2vmin);
   color: white;
 }
 
@@ -37,7 +37,7 @@
   }
 }
 .footer {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -128,7 +128,7 @@ tr {
 
 
 
-body {
+.grey-background {
   width: flex;
   height: flex;
   
@@ -151,8 +151,8 @@ body {
   height: 700px;
   /* border: 5px solid #f00; */
   position: absolute;
-  top: 150px;
-  left: 50px;
+  top: 0px;
+  left: 0px;
 }
 .orderZone{
   width: 60%;
@@ -166,27 +166,28 @@ body {
 .selector{
   width: 30%;
   height: auto;
-  /* border: 5px solid #2f29cb; */
-  position: absolute;
-  top: 100px;
+  top: 10%;
   left: 10%;
 }
 .orderTable{
-  width: 30%;
+  width: 50%;
   height: auto;
   /* border: 5px solid #2f29cb; */
   position: absolute;
-  top: 100px;
-  right: 100px;
+  top: 10%;
+  left: 40%;
 }
 .partTable,
 .customerForm{
   width: 30%;
   height: auto;
   /* border: 5px solid #2f29cb; */
-  position: absolute;
+  position: relative;
   top: 100px;
-  left: 25%;
+  left: 15%;
+}
+.border-blue{
+  border: 5px solid #2f29cb;
 }
 
 

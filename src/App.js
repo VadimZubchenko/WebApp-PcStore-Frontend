@@ -320,11 +320,13 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div>
       <Navbar isLogged={state.isLogged} logout={logout} />
-      {messageArea}
-      <hr />
-      {tempRender}
+      <div className="text-center">
+        <hr />
+        {messageArea}
+      </div>
+      <div className="container-fluid">{tempRender}</div>
     </div>
 
     /*{ <<<<<<<<<<<<<< On branch main being version >>>>>>>>>>>>>>>>>> */

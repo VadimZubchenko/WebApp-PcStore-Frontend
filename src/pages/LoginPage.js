@@ -21,16 +21,19 @@ const LoginPage = (props) => {
 
   //function which changes a type of form for login/reg
   const changeToReg = (event) => {
-    if (event.target.name === "toRegForm") {
+    if (event.target.name === "Registration") {
       props.setError("Registration form");
       setState((state) => {
         return {
-          ...state,
+          staffName: "",
+          login: "",
+          password: "",
+          confirmPassword: "",
           isReg: true,
         };
       });
     }
-    if (event.target.name === "toLogForm") {
+    if (event.target.name === "Authorization") {
       props.setError("Authorization form");
       setState((state) => {
         return {
@@ -73,9 +76,9 @@ const LoginPage = (props) => {
       password: state.password,
       confirmPassword: state.confirmPassword,
     };
-    if (event.target.name === "register") {
+    if (event.target.name === "Registration") {
       props.register(newUser);
-      console.log("befor: " + state.staffName);
+      console.log("before: " + state.staffName);
 
       console.log("after: " + state.staffName);
     } else {
@@ -91,14 +94,14 @@ const LoginPage = (props) => {
       className="d-flex justify-content-center align-items-center"
       style={{ height: window.innerHeight - 150 }}
     >
-      <Card style={{ width: 500 }} className="p-5">
-        <h2>{state.isReg ? "Registration" : "Authorization"}</h2>
+      <Card style={{ width: 500 }} className="p-5 grey-background">
+        {/* <h2>{state.isReg ? "Registration" : "Authorization"}</h2> */}
         <div
-          style={{ width: 400, backgroundColor: "lightgreen", margin: "auto" }}
+          style={{ width: 400, backgroundColor: "light-grey", margin: "auto" }}
         >
           <Form className="d-flex flex-column">
             {state.isReg && (
-              <label htmlFor="staffName" className="form-label">
+              <label htmlFor="staffName" className="form-label mb-0 mt-3">
                 Name
               </label>
             )}
@@ -107,39 +110,39 @@ const LoginPage = (props) => {
                 type="text"
                 name="staffName"
                 id="staffName"
-                className="mt-3"
+                className="mt-2"
                 placeholder="Enter your name..."
                 onChange={onChange}
                 value={staffName}
               />
             )}
 
-            <label htmlFor="login" className="form-label">
+            <label htmlFor="login" className="form-label mb-0 mt-3">
               Login
             </label>
             <FormControl
               type="text"
               name="login"
               id="login"
-              className="mt-3"
+              className="mt-2"
               placeholder="Enter your login..."
               onChange={onChange}
               value={login}
             />
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className="form-label mb-0 mt-3">
               Password
             </label>
             <FormControl
               type="password"
               name="password"
               id="password"
-              className="mt-3"
+              className="mt-2"
               placeholder="Enter your password"
               onChange={onChange}
               value={password}
             />
             {state.isReg && (
-              <label htmlFor="confirmPassword" className="form-label">
+              <label htmlFor="confirmPassword" className="form-label mb-0 mt-3">
                 Confirm password
               </label>
             )}
@@ -148,33 +151,33 @@ const LoginPage = (props) => {
                 type="password"
                 name="confirmPassword"
                 id="confirmPassword"
-                className="mt-3"
+                className="mt-2"
                 placeholder="Repeat your password"
                 onChange={onChange}
                 value={confirmPassword}
               />
             )}
-            <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
-              <Button
-                variant={"outline-success"}
-                className="btn btn-primary"
-                name={state.isReg ? "toLogForm" : "toRegForm"}
-                onClick={changeToReg}
-                style={{ marginLeft: 10 }}
-              >
-                {state.isReg ? "to SingIn" : "to Register"}
-              </Button>
-              <Button
-                variant={"outline-success"}
-                className="btn btn-primary"
-                name={state.isReg ? "register" : "login"}
-                onClick={onSubmit}
-                style={{ marginRight: 10 }}
-              >
-                {state.isReg ? "Register" : "Sign in"}
-              </Button>
-            </Row>
           </Form>
+          <Row className="d-flex justify-content-between mt-5">
+            <div className="d-grid gap-3">
+              <Button
+                variant={"outline-success"}
+                className="btn"
+                name={state.isReg ? "REGISTER IN" : "LOGIN"}
+                onClick={onSubmit}
+              >
+                {state.isReg ? "REGISTER IN" : "SIGN IN"}
+              </Button>
+              <Button
+                variant={"outline-primary"}
+                className="btn"
+                name={state.isReg ? "Authorization" : "Registration"}
+                onClick={changeToReg}
+              >
+                {state.isReg ? "Authorization" : "Registration"}
+              </Button>
+            </div>
+          </Row>
         </div>
       </Card>
     </Container>

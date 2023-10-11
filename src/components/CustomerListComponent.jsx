@@ -1,9 +1,8 @@
 import React from "react";
-import Row from "react-bootstrap/Row";
 
 const ListCustomerComponent = (props) => {
   return (
-    <Row className="d-flex">
+    <div className="row d-flex">
       <div>
         <h2 className="text-center">Customers List</h2>
         <div className="row">
@@ -35,7 +34,7 @@ const ListCustomerComponent = (props) => {
         </div>
         {props.errorMsg ? <div>{props.errorMsg}</div> : null}
       </div>
-    </Row>
+    </div>
   );
 };
 

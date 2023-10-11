@@ -84,92 +84,94 @@ const OrderListComponent = observer((props) => {
   }, [order.totalPrice]);
 
   return (
-    <div>
-      <div className="selector">
-        <button
-          type="button"
-          className="quantity-input__modifier btn btn-outline-primary quantity-input__screen"
-          onClick={addPart}
-        >
-          Add part
-        </button>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-lg-4 mx-auto">
+          <h2>Total Price:</h2>
+          <input
+            className="quantity-input__screen"
+            type="text"
+            value={summa.value}
+            readOnly
+          />
+          <h2>Set the quantity</h2>
+          <button
+            className="quantity-input__modifier quantity-input__modifier--left"
+            onClick={decrement}
+          >
+            &mdash;
+          </button>
+          <input
+            className="quantity-input__screen"
+            type="text"
+            value={orderedQuantity.value}
+            readOnly
+          />
+          <button
+            className="quantity-input__modifier quantity-input__modifier--right"
+            onClick={increment}
+          >
+            &#xff0b;
+          </button>
+          <br />
+          <br />
 
-        <h2>Set the quantity</h2>
-        <button
-          className="quantity-input__modifier quantity-input__modifier--left"
-          onClick={decrement}
-        >
-          &mdash;
-        </button>
-        <input
-          className="quantity-input__screen"
-          type="text"
-          value={orderedQuantity.value}
-          readOnly
-        />
-        <button
-          className="quantity-input__modifier quantity-input__modifier--right"
-          onClick={increment}
-        >
-          &#xff0b;
-        </button>
-        <h2>Total Price:</h2>
-        <input
-          className="quantity-input__screen"
-          type="text"
-          value={summa.value}
-          readOnly
-        />
-      </div>
-
-      <div
-        className="orderTable ag-theme-alpine"
-        style={{ height: 400, width: 600 }}
-      >
-        <h2 className="text-center">Order</h2>
-        <table
-          className="table table-striped table-borderless"
-          onClick={() => console.log(order.length)}
-        >
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Part Name</th>
-              <th>Part Type</th>
-              <th>Par Quantity</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orderedParts.length
-              ? orderedParts.map((part) => (
-                  <tr key={part.ID}>
-                    <td>{part.partID}</td>
-                    <td>{part.partName}</td>
-                    <td>{part.partType}</td>
-                    <td>{part.partQuantity}</td>
-                    <td>{part.partPrice}</td>
-                  </tr>
-                ))
-              : null}
-          </tbody>
-        </table>
-        <button
-          type="button"
-          className="btn btn-success"
-          onClick={createOrder}
-          style={{ marginLeft: "20px" }}
-        >
-          Do Order
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={cancel}
-          style={{ marginLeft: "20px" }}
-        >
-          Cancel
-        </button>
+          <button
+            type="button"
+            className="quantity-input__modifier btn btn-outline-primary quantity-input__screen"
+            onClick={addPart}
+          >
+            Add part
+          </button>
+        </div>
+        <div className="col-lg-5 mx-auto mx-auto">
+          <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
+            <h2 className="text-center">Order</h2>
+            <table
+              className="table table-striped table-borderless"
+              onClick={() => console.log(order.length)}
+            >
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Part Name</th>
+                  <th>Part Type</th>
+                  <th>Par Quantity</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderedParts.length
+                  ? orderedParts.map((part) => (
+                      <tr key={part.ID}>
+                        <td>{part.partID}</td>
+                        <td>{part.partName}</td>
+                        <td>{part.partType}</td>
+                        <td>{part.partQuantity}</td>
+                        <td>{part.partPrice}</td>
+                      </tr>
+                    ))
+                  : null}
+              </tbody>
+            </table>
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={createOrder}
+              style={{ marginLeft: "20px" }}
+            >
+              Do Order
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={cancel}
+              style={{ marginLeft: "20px" }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

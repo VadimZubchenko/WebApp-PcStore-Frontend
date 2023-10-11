@@ -10,7 +10,7 @@ const PartListComponent = observer((props) => {
 
   return (
     <div
-      className="partTable ag-theme-alpine position-relative"
+      className="ag-theme-alpine mt-5 mx-auto mb-3"
       style={{ height: 300, width: 600 }}
     >
       <h2 className="text-center">Parts</h2>
