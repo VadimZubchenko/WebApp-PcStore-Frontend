@@ -64,7 +64,8 @@ tr {
   background-color: aquamarine;
 }
 
-.selected, .selected:hover {
+.selected, 
+.selected:hover {
   background-color: aqua;
 }
 
@@ -125,7 +126,6 @@ tr {
   border-bottom: 0 solid #dbdbdb;
   text-align: center;
 }
-
 
 
 .grey-background {

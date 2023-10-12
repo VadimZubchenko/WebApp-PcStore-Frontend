@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-import "../App.css";
 
 const PartListComponent = observer((props) => {
   const { parts } = useContext(Context);
@@ -10,11 +9,11 @@ const PartListComponent = observer((props) => {
 
   return (
     <div
-      className="ag-theme-alpine mt-5 mx-auto mb-3"
+      className="ag-theme-alpine mt-5 mx-auto mb-3 "
       style={{ height: 300, width: 600 }}
     >
       <h2 className="text-center">Parts</h2>
-      <table className="table table-borderless">
+      <table className="table">
         <thead>
           <tr>
             <th>Part ID</th>
@@ -29,10 +28,8 @@ const PartListComponent = observer((props) => {
           {props.list.length
             ? props.list.map((part) => (
                 <tr
-                  style={{ cursor: "pointer" }}
-                  //active={part.partID === parts.selectedPart.partID}
                   onClick={() => parts.setSelectedPart(part)}
-                  //if concat(true) then use scc "selected"
+                  //code below while concat is true, then insert scc's "selected"
                   className={"clickable-row ".concat(
                     parts.selectedPart.partID === part.partID ? "selected" : ""
                   )}

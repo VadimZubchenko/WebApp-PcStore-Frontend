@@ -9,7 +9,7 @@ const Navbar = (props) => {
   if (props.isLogged) {
     links = (
       <div className="row">
-        <div className="col mt-4">
+        <div className="col xs={6} mt-4">
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item" style={{ marginRight: 30 }}>
