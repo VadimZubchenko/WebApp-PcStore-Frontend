@@ -45,40 +45,57 @@ const AddCustomerForm = observer((props) => {
   return (
     <div
       className="ag-theme-alpine mx-auto mt-3"
-      style={{ height: 200, width: 600 }}
+      style={{ height: 400, width: 500 }}
     >
-      <div className="card-body">
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Full name"
-            name="customerName"
-            value={customerName}
-            /* onChange make possible user to write text on input element */
-            onChange={changeHandler}
-          />
-
-          <input
-            type="text"
-            className="form-control"
-            placeholder="address"
-            name="address"
-            value={address}
-            onChange={changeHandler}
-          />
-
-          <input
-            type="email"
-            className="form-control"
-            placeholder="email "
-            name="email"
-            value={email}
-            onChange={changeHandler}
-          />
+      <h2 className="text-center">Customer</h2>
+      <div className="p-3 card-box">
+        <div className="form-group was-validated">
+          <div className="mb-3 mt-3">
+            <input
+              type="text"
+              className="form-control"
+              id="customerName"
+              placeholder="Enter customer name"
+              name="customerName"
+              required
+              value={customerName}
+              /* onChange make possible user to write text on input element */
+              onChange={changeHandler}
+            />
+            <div className="valid-feedback">Valid</div>
+            <div className="invalid-feedback">Please fill out this field</div>
+          </div>
+          <div className="mb-3">
+            <input
+              type="text"
+              className="form-control"
+              id="address"
+              placeholder="Enter address"
+              name="address"
+              required
+              value={address}
+              onChange={changeHandler}
+            />
+            <div className="valid-feedback">Valid</div>
+            <div className="invalid-feedback">Please fill out this field</div>
+          </div>
+          <div className="mb-3">
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              placeholder="Enter email "
+              name="email"
+              required
+              value={email}
+              onChange={changeHandler}
+            />
+            <div className="valid-feedback">Valid</div>
+            <div className="invalid-feedback">Please fiil out this field</div>
+          </div>
         </div>
         <button
-          className="btn btn-danger"
+          className="btn btn-outline-secondary"
           onClick={cancel}
           style={{ marginLeft: "10px" }}
         >

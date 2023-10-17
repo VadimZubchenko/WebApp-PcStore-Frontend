@@ -13,6 +13,7 @@ import LoginPage from "./pages/LoginPage";
 import ListCustomerComponent from "./components/CustomerListComponent";
 import AddCustomerForm from "./components/AddCustomerForm";
 import ShopPage from "./pages/ShopPage";
+import FooterComponent from "./components/FooterComponent";
 
 function App() {
   // Create first state with staff list, token and error for showing a message of processing
@@ -306,7 +307,7 @@ function App() {
             <ShopPage
               addOrder={addOrder}
               list={state.list}
-              errorMsg={state.error}
+              setError={setError}
             />
           }
         />
@@ -320,13 +321,20 @@ function App() {
   }
 
   return (
-    <div>
-      <Navbar isLogged={state.isLogged} logout={logout} />
+    <div className="container-fluid">
+      <header>
+        <Navbar isLogged={state.isLogged} logout={logout} />
+      </header>
       <div className="text-center">
         <hr />
         {messageArea}
       </div>
-      <div className="container-fluid">{tempRender}</div>
+      <div className="container-fluid bd-gutter grey-background card-box">
+        {tempRender}
+      </div>
+      <footer className="footer bd-footer py-2 py-md-3 mt-4 bg-black position-relative">
+        <FooterComponent />
+      </footer>
     </div>
 
     /*{ <<<<<<<<<<<<<< On branch main being version >>>>>>>>>>>>>>>>>> */

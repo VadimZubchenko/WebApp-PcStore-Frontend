@@ -6,17 +6,24 @@ import AddCustomerForm from "../components/AddCustomerForm";
 
 const ShopPage = (props) => {
   return (
-    <div className="row grey-background">
-      <div className="col-lg-4">
+    <div className="row">
+      <div className="col-md-5 mx-auto">
         <div className="row">
-          <PartListComponent list={props.list} errorMsg={props.error} />
+          <div className="col mx-auto">
+            <PartListComponent list={props.list} setError={props.setError} />
+          </div>
         </div>
-        <div>
-          <AddCustomerForm />
+        <div className="row">
+          <div className="col mx-auto">
+            <AddCustomerForm />
+          </div>
         </div>
       </div>
-      <div className="col-lg-8">
-        <OrderListComponent addOrder={props.addOrder} />
+      <div className="col-md-7 mx-auto">
+        <OrderListComponent
+          addOrder={props.addOrder}
+          setError={props.setError}
+        />
       </div>
     </div>
   );

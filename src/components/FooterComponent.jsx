@@ -3,12 +3,8 @@ import React, { Component } from "react";
 class FooterComponent extends Component {
   render() {
     return (
-      <div>
-        <footer className="d-flex footer">
-          <span className="text-muted">
-            All Rights Reserved 2023 @VadimZubchenko
-          </span>
-        </footer>
+      <div className="container">
+        <span className="mx-auto text-white-50">Author: @vadimzubchenko</span>
       </div>
     );
   }

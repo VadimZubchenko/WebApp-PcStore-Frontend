@@ -9,7 +9,7 @@ const PartListComponent = observer((props) => {
 
   return (
     <div
-      className="ag-theme-alpine mt-5 mx-auto mb-3 "
+      className="ag-theme-alpine mt-5 mb-3 mx-auto p-3 card-box"
       style={{ height: 300, width: 600 }}
     >
       <h2 className="text-center">Parts</h2>
@@ -31,7 +31,9 @@ const PartListComponent = observer((props) => {
                   onClick={() => parts.setSelectedPart(part)}
                   //code below while concat is true, then insert scc's "selected"
                   className={"clickable-row ".concat(
-                    parts.selectedPart.partID === part.partID ? "selected" : ""
+                    parts.selectedPart.partID === part.partID
+                      ? "text-bg-secondary"
+                      : ""
                   )}
                   key={part.partID}
                 >
@@ -40,7 +42,7 @@ const PartListComponent = observer((props) => {
                   <td>{part.partType}</td>
                   <td>{part.stockQuantity}</td>
                   <td>{part.partPrice}</td>
-                  <td>{part.shelfNumber}</td>
+                  <td>{part.shelf}</td>
                 </tr>
               ))
             : null}

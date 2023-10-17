@@ -91,11 +91,11 @@ const LoginPage = (props) => {
 
   return (
     <Container
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: window.innerHeight - 150 }}
+      className="d-flex justify-content-center align-items-center position-relative"
+      style={{ height: window.innerHeight - 180 }}
     >
-      <Card style={{ width: 500 }} className="p-5 grey-background">
-        {/* <h2>{state.isReg ? "Registration" : "Authorization"}</h2> */}
+      <Card style={{ width: 500 }} className=" card-box p-5">
+        <h2>{state.isReg ? "Registration" : "Authorization"}</h2>
         <div
           style={{ width: 400, backgroundColor: "light-grey", margin: "auto" }}
         >
@@ -163,7 +163,7 @@ const LoginPage = (props) => {
               <Button
                 variant={"outline-success"}
                 className="btn"
-                name={state.isReg ? "REGISTER IN" : "LOGIN"}
+                name={state.isReg ? "Registration" : "Login"}
                 onClick={onSubmit}
               >
                 {state.isReg ? "REGISTER IN" : "SIGN IN"}

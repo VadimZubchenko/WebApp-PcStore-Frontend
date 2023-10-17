@@ -61,13 +61,13 @@ tr {
 }
 
 .clickable-row:hover {
-  background-color: aquamarine;
+  background-color: rgb(231, 239, 238);
 }
 
-.selected, 
+/* .selected, 
 .selected:hover {
-  background-color: aqua;
-}
+  background-color: rgb(197, 205, 205);
+} */
 
 /*order quantity increment decrement  */
 .quantity-input {
@@ -79,7 +79,7 @@ tr {
   border-radius: 3px;
   
   &:focus {
-    background-color: red;
+    background: red;
   }
 }
 
@@ -95,7 +95,7 @@ tr {
   font-size: 1.5rem;
   
   background: #f3f3f3;
-  color: #888;
+  color: #000000;
   border: 0 solid #dbdbdb;
   text-align: center;
   text-shadow: 0 1px 0 rgba(#fff, .6);
@@ -103,9 +103,9 @@ tr {
   cursor: pointer;
   
   &:hover {
-    background: darken(#f3f3f3, 10%);
-    color: darken(#888, 20%)
-  }
+    background:grey;
+    color: #fdfbfb
+  } 
   
   &--left {
     border-radius: 3px 0 0 3px;
@@ -190,6 +190,12 @@ tr {
   border: 5px solid #2f29cb;
 }
 
+.card-box {
+  width: 95%;
+  border-radius: 2%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
 
+ 
 
