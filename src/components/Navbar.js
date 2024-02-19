@@ -17,9 +17,14 @@ const Navbar = (props) => {
                   Make Order
                 </Link>
               </li>
-              <li className="nav-item" style={{ marginRight: 800 }}>
+              <li className="nav-item" style={{ marginRight: 30 }}>
                 <Link className="nav-link" to="/add-customer">
                   Add Customer
+                </Link>
+              </li>
+              <li className="nav-item" style={{ marginRight: 700 }}>
+                <Link className="nav-link" to="/customers">
+                  Customers
                 </Link>
               </li>
               <li className="nav-item">

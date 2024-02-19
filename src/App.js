@@ -10,15 +10,17 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LoginPage from "./pages/LoginPage";
-import ListCustomerComponent from "./components/CustomerListComponent";
+import CustomerListComponent from "./components/CustomerListComponent";
 import AddCustomerForm from "./components/AddCustomerForm";
 import ShopPage from "./pages/ShopPage";
 import FooterComponent from "./components/FooterComponent";
+import { get } from "mobx";
 
 function App() {
   // Create first state with staff list, token and error for showing a message of processing
   const [state, setState] = useState({
     list: [],
+    customers: [],
     isLogged: false,
     token: "",
     loading: false,
@@ -32,30 +34,31 @@ function App() {
     action: "",
   });
 
-  //useEffect being intitiated from all states changes
   //STORAGE FUNCTIOINS
 
+  //this useEffect being intitiated from all states changes, because below [...] is empty
   useEffect(() => {
     // saving session on the web-browser gives opportunity reload page into same state
     // without that it goes comeback to loginpage
-    // first passing here('true') will be just after case of action: "register" and setError's saveToStorage(tempState);
+    // first passing here('true') will be just after case of action: "register" included setError's saveToStorage(tempState);
     if (sessionStorage.getItem("state")) {
       let state = JSON.parse(sessionStorage.getItem("state"));
       setState(state);
+      //first time state.isLogged==true in useEffect() case "login":
       if (state.isLogged) {
-        //after 'login' loads first time the empty getShoppList(token) after reloading the page
+        //loads the getPartList(token) after reloading the page
         getPartList(state.token);
       }
     }
   }, []);
-  //sessionStorage is embedded lib, first time initiated while login
+  //sessionStorage is included in embedded lib, first time initiated while login
   const saveToStorage = (state) => {
     sessionStorage.setItem("state", JSON.stringify(state));
   };
 
   //APP STATE FUNCTIONS
 
-  //update state with 'loading' status: false or true
+  //update the 'state' with 'loading' status (false or true)
   const setLoading = (loading) => {
     setState((state) => {
       return {
@@ -66,6 +69,7 @@ function App() {
     });
   };
 
+  //update the 'state' with 'error' status (some massage)
   const setError = (error) => {
     setState((state) => {
       let tempState = {
@@ -76,10 +80,11 @@ function App() {
       return tempState;
     });
   };
-
+  //clearning state
   const clearState = () => {
     let state = {
       list: [],
+      customers: [],
       isLogged: false,
       token: "",
       loading: false,
@@ -89,8 +94,9 @@ function App() {
     setState(state);
   };
 
-  // create useEffect(), which will render App comp. while urlRequest.url, *.request, *.action are changed
-  // useEffect() call async fetch() to REST API on BackEnd-side
+  //this useEffect() will render App comp. while
+  //urlRequest.url, *.request, *.action are changed, see below [initiation cause]
+  //useEffect() call async fetch() to REST API on BackEnd-side
   useEffect(() => {
     const fetchData = async () => {
       if (!urlRequest.url) {
@@ -113,16 +119,34 @@ function App() {
               return tempState;
             });
             return;
+
+          case "getCustomers":
+            let customers = await response.json();
+            setState((state) => {
+              let tempState = {
+                ...state,
+                customers: customers,
+              };
+              // saving the page state into sessionStorage
+              saveToStorage(tempState);
+              return tempState;
+            });
+            return;
+
           case "addcustomer":
             getPartList();
             return;
+
           case "addOrder":
             getPartList();
             return;
 
           case "register":
-            setError("Register success"); // methood upddates STATE with error: "Register succes" and first time saveToStorage see above
+            //the methood 'setError()' upddates STATE with error: "Register success"
+            //and initiates the very first time 'saveToStorage(s)', see above
+            setError("Register success");
             return;
+
           case "login":
             //the resp will include created on backEnd token with login & password
             let token = await response.json();
@@ -140,6 +164,7 @@ function App() {
             });
             getPartList(token.token);
             return;
+
           case "logout":
             clearState();
             return;
@@ -241,6 +266,23 @@ function App() {
       action: "getlist",
     });
   };
+  const getCustomerList = (token) => {
+    let temptoken = state.token; // it "null " before 'login'
+    if (token) {
+      temptoken = token;
+    }
+
+    setUrlRequest({
+      url: "/customers",
+      request: {
+        method: "GET",
+        mode: "cors",
+        //The token is inserted into headers.
+        headers: { "Content-type": "application/json", token: temptoken },
+      },
+      action: "getCustomers",
+    });
+  };
 
   // add Customers function
   const addCustomer = (item) => {
@@ -307,6 +349,7 @@ function App() {
             <ShopPage
               addOrder={addOrder}
               list={state.list}
+              errorMsg={state.error}
               setError={setError}
             />
           }
@@ -314,6 +357,17 @@ function App() {
         <Route
           path="/add-customer"
           element={<AddCustomerForm addCustomer={addCustomer} />}
+        />
+        <Route
+          path="/customers"
+          element={
+            <CustomerListComponent
+              getCustomerList={getCustomerList}
+              customers={state.customers}
+              errorMsg={state.error}
+              setError={setError}
+            />
+          }
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

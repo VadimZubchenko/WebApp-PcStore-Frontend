@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const ListCustomerComponent = (props) => {
+  //initaite getCustomer() method in App.js via props.
+  useEffect(() => {
+    props.getCustomerList(props.token);
+  }, []);
+
   return (
     <div className="row d-flex">
       <div>
@@ -18,8 +23,8 @@ const ListCustomerComponent = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {props.list.length
-                  ? props.list.map((customer) => (
+                {props.customers.length
+                  ? props.customers.map((customer) => (
                       <tr key={customer.customerID}>
                         <td>{customer.customerID}</td>
                         <td>{customer.customerName}</td>
