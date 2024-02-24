@@ -14,7 +14,6 @@ import CustomerListComponent from "./components/CustomerListComponent";
 import AddCustomerForm from "./components/AddCustomerForm";
 import ShopPage from "./pages/ShopPage";
 import FooterComponent from "./components/FooterComponent";
-import { get } from "mobx";
 
 function App() {
   // Create first state with staff list, token and error for showing a message of processing
@@ -363,6 +362,7 @@ function App() {
           element={
             <CustomerListComponent
               getCustomerList={getCustomerList}
+              token={state.token}
               customers={state.customers}
               errorMsg={state.error}
               setError={setError}

@@ -85,8 +85,9 @@ const OrderListComponent = observer((props) => {
       return;
     }
     props.setError("");
+
     setOrder({
-      staff: "Admin_Seller",
+      staff: "vadimzu", // -!!!- to be fixed, hard-coded name of staff, so in table is always the same staff
       totalPrice: summa.value,
       customer: [customer],
       orderedParts: [partDetails],
@@ -162,22 +163,22 @@ const OrderListComponent = observer((props) => {
           >
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Part Name</th>
-                <th>Part Type</th>
-                <th>Part Quantity</th>
-                <th>Price</th>
+                <th className="text-center">ID</th>
+                <th className="text-start">Part Name</th>
+                <th className="text-start">Part Type</th>
+                <th className="text-center">Part Quantity</th>
+                <th className="text-start">Price</th>
               </tr>
             </thead>
             <tbody>
               {orderedParts.length
                 ? orderedParts.map((part) => (
                     <tr key={part.ID}>
-                      <td>{part.partID}</td>
-                      <td>{part.partName}</td>
-                      <td>{part.partType}</td>
-                      <td>{part.partQuantity}</td>
-                      <td>{part.partPrice}</td>
+                      <td className="text-center">{part.partID}</td>
+                      <td className="text-start">{part.partName}</td>
+                      <td className="text-start">{part.partType}</td>
+                      <td className="text-center">{part.partQuantity}</td>
+                      <td className="text-start">{part.partPrice}</td>
                     </tr>
                   ))
                 : null}

@@ -16,12 +16,12 @@ const PartListComponent = observer((props) => {
       <table className="table">
         <thead>
           <tr>
-            <th>Part ID</th>
-            <th>Part Name</th>
-            <th>Part Type</th>
-            <th>Stock Quantity</th>
-            <th>Price</th>
-            <th>Shelf</th>
+            <th className="text-center">Part ID</th>
+            <th className="text-start">Part Name</th>
+            <th className="text-start">Part Type</th>
+            <th className="text-center">Stock Quantity</th>
+            <th className="text-start">Price</th>
+            <th className="text-start">Shelf</th>
           </tr>
         </thead>
         <tbody>
@@ -37,12 +37,12 @@ const PartListComponent = observer((props) => {
                   )}
                   key={part.partID}
                 >
-                  <td>{part.partID}</td>
-                  <td>{part.partName}</td>
-                  <td>{part.partType}</td>
-                  <td>{part.stockQuantity}</td>
-                  <td>{part.partPrice}</td>
-                  <td>{part.shelf}</td>
+                  <td className="text-center">{part.partID}</td>
+                  <td className="text-start">{part.partName}</td>
+                  <td className="text-start">{part.partType}</td>
+                  <td className="text-center">{part.stockQuantity}</td>
+                  <td className="text-start">{part.partPrice}</td>
+                  <td className="text-start">{part.shelf}</td>
                 </tr>
               ))
             : null}
