@@ -326,6 +326,7 @@ function App() {
         mode: "cors",
         //The token is inserted into headers.
         headers: { "Content-type": "application/json", token: state.token },
+        body: JSON.stringify(customer),
       },
       action: "editCustomer",
     });

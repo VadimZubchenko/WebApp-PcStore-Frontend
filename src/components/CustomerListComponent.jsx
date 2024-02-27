@@ -43,7 +43,6 @@ const ListCustomerComponent = (props) => {
 
   let customers = props.customers.length
     ? props.customers.map((customer, index) => {
-        console.log("Index", index);
         if (state.editIndex === index) {
           return (
             <EditRow
