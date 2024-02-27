@@ -45,7 +45,7 @@ function App() {
       setState(state);
       //first time state.isLogged==true in useEffect() case "login":
       if (state.isLogged) {
-        //loads the getPartList(token) after reloading the page
+        //loads getPartList(token) after reloading the page
         getPartList(state.token);
       }
     }
@@ -134,6 +134,17 @@ function App() {
 
           case "addcustomer":
             getPartList();
+            getCustomerList();
+            return;
+
+          case "editCustomer":
+            getPartList();
+            getCustomerList();
+            return;
+
+          case "removeCustomer":
+            getPartList();
+            getCustomerList();
             return;
 
           case "addOrder":
@@ -270,7 +281,6 @@ function App() {
     if (token) {
       temptoken = token;
     }
-
     setUrlRequest({
       url: "/customers",
       request: {
@@ -282,7 +292,6 @@ function App() {
       action: "getCustomers",
     });
   };
-
   // add Customers function
   const addCustomer = (item) => {
     setUrlRequest({
@@ -296,6 +305,32 @@ function App() {
       action: "addcustomer",
     });
   };
+  const removeCustomer = (customerID) => {
+    setUrlRequest({
+      url: "/customers/" + customerID,
+      request: {
+        method: "DELETE",
+        mode: "cors",
+        //The token is inserted into headers.
+        headers: { "Content-type": "application/json", token: state.token },
+      },
+      action: "removeCustomer",
+    });
+  };
+
+  const editCustomer = (customer) => {
+    setUrlRequest({
+      url: "/customers/" + customer.customerID,
+      request: {
+        method: "PUT",
+        mode: "cors",
+        //The token is inserted into headers.
+        headers: { "Content-type": "application/json", token: state.token },
+      },
+      action: "editCustomer",
+    });
+  };
+
   //addOrder
   const addOrder = (item) => {
     setUrlRequest({
@@ -362,6 +397,8 @@ function App() {
           element={
             <CustomerListComponent
               getCustomerList={getCustomerList}
+              editCustomer={editCustomer}
+              removeCustomer={removeCustomer}
               token={state.token}
               customers={state.customers}
               errorMsg={state.error}

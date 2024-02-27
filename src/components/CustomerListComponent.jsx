@@ -1,10 +1,80 @@
 import React, { useState, useEffect } from "react";
+import Row from "./Row";
+import EditRow from "./EditRow";
+import RemoveRow from "./RemoveRow";
 
 const ListCustomerComponent = (props) => {
+  const [state, setState] = useState({
+    removeIndex: -1,
+    editIndex: -1,
+  });
   //initaite in 'App.js' class's getCustomer() method via props.
   useEffect(() => {
     props.getCustomerList(props.token);
-  }, []);
+  }, [state.removeIndex, state.editIndex]);
+
+  const changeToRemoveMode = (index) => {
+    setState({
+      removeIndex: index,
+      editIndex: -1,
+    });
+  };
+  const changeToEditMode = (index) => {
+    setState({
+      removeIndex: -1,
+      editIndex: index,
+    });
+  };
+
+  const cancel = () => {
+    setState({
+      removeIndex: -1,
+      editIndex: -1,
+    });
+  };
+  const editCustomer = (customer) => {
+    props.editCustomer(customer);
+    cancel();
+  };
+  const removeCustomer = (customerID) => {
+    props.removeCustomer(customerID);
+    cancel();
+  };
+
+  let customers = props.customers.length
+    ? props.customers.map((customer, index) => {
+        console.log("Index", index);
+        if (state.editIndex === index) {
+          return (
+            <EditRow
+              key={customer.customerID}
+              customer={customer}
+              editCustomer={editCustomer}
+              cancel={cancel}
+            />
+          );
+        }
+        if (state.removeIndex === index) {
+          return (
+            <RemoveRow
+              key={customer.customerID}
+              customer={customer}
+              removeCustomer={removeCustomer}
+              cancel={cancel}
+            />
+          );
+        }
+        return (
+          <Row
+            key={customer.customerID}
+            customer={customer}
+            index={index}
+            changeToRemoveMode={changeToRemoveMode}
+            changeToEditMode={changeToEditMode}
+          />
+        );
+      })
+    : null;
 
   return (
     <div className="row mx-auto">
@@ -17,22 +87,11 @@ const ListCustomerComponent = (props) => {
               <th className="text-start">Customer Name</th>
               <th className="text-start">Customer Address</th>
               <th className="text-start">Customer Email</th>
-              <th className="text-start">Actions</th>
+              <th className="text-center">Remove</th>
+              <th className="text-center">Edit</th>
             </tr>
           </thead>
-          <tbody>
-            {props.customers.length
-              ? props.customers.map((customer) => (
-                  <tr key={customer.customerID}>
-                    <td className="text-center">{customer.customerID}</td>
-                    <td className="text-start">{customer.customerName}</td>
-                    <td className="text-start">{customer.address}</td>
-                    <td className="text-start">{customer.email}</td>
-                    <td className="text-start"></td>
-                  </tr>
-                ))
-              : null}
-          </tbody>
+          <tbody>{customers}</tbody>
         </table>
         {props.errorMsg ? <div>{props.errorMsg}</div> : null}
       </div>
