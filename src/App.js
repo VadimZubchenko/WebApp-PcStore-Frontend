@@ -22,6 +22,7 @@ function App() {
     customers: [],
     isLogged: false,
     token: "",
+    staff: "",
     loading: false,
     error: "",
   });
@@ -35,13 +36,14 @@ function App() {
 
   //STORAGE FUNCTIOINS
 
-  //this useEffect being intitiated from all states changes, because below [...] is empty
+  //this useEffect being intitiated from all states changes, because below array argument "[]" is empty
   useEffect(() => {
     // saving session on the web-browser gives opportunity reload page into same state
     // without that it goes comeback to loginpage
     // first passing here('true') will be just after case of action: "register" included setError's saveToStorage(tempState);
     if (sessionStorage.getItem("state")) {
       let state = JSON.parse(sessionStorage.getItem("state"));
+      // here every rendering set state geting from session storage
       setState(state);
       //first time state.isLogged==true in useEffect() case "login":
       if (state.isLogged) {
@@ -86,6 +88,7 @@ function App() {
       customers: [],
       isLogged: false,
       token: "",
+      staff: "",
       loading: false,
       error: "",
     };
@@ -158,21 +161,23 @@ function App() {
             return;
 
           case "login":
-            //the resp will include created on backEnd token with login & password
-            let token = await response.json();
+            //the resp includes both token and staffLogin created on backEnd with login & password
+            let resp = await response.json();
             setState((state) => {
               // isLogged == true ,state.isLogged changes to true, see above
               // which opens other tempRender page, see below
               let tempState = {
                 ...state,
                 isLogged: true,
-                token: token.token, // token.token, because in resp the token is under token name
+                token: resp.token, // token.token, because in resp. the token is under token name
+                staff: resp.staffLogin,
               };
+              console.log("User:", tempState.staffLogin);
               // saving the page state into sessionStorage
               saveToStorage(tempState);
               return tempState; //just now it changes the state
             });
-            getPartList(token.token);
+            getPartList(resp.token);
             return;
 
           case "logout":
@@ -415,7 +420,7 @@ function App() {
   return (
     <div className="container-fluid">
       <header>
-        <Navbar isLogged={state.isLogged} logout={logout} />
+        <Navbar isLogged={state.isLogged} logout={logout} staff={state.staff} />
       </header>
       <div className="text-center">
         <hr />

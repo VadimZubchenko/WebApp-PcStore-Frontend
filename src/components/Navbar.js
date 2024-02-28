@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-// Navbar gets App component's functioins via props
+
+// Navbar gets App component's functions via props
 const Navbar = (props) => {
+  console.log("staff:", props.staff);
   let links = (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav"></ul>
@@ -22,15 +24,21 @@ const Navbar = (props) => {
                   Add Customer
                 </Link>
               </li>
-              <li className="nav-item" style={{ marginRight: 700 }}>
+              <li className="nav-item" style={{ marginRight: 350 }}>
                 <Link className="nav-link" to="/customers">
                   Customers
                 </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" style={{ marginRight: 50 }}>
                 <Link className="nav-link" to="/logout" onClick={props.logout}>
                   Logout
                 </Link>
+              </li>
+              <li>
+                <p className="navbar-text m-1 p-0">
+                  Signed in as:{" "}
+                  <a className="navbar-brand mx-3">{props.staff}</a>
+                </p>
               </li>
             </ul>
           </div>
@@ -44,6 +52,7 @@ const Navbar = (props) => {
         <div className="row">
           <div className="col">
             <p className="navbar-brand mt-3">PC Store</p>
+
             <button
               className="navbar-toggler"
               type="button"
