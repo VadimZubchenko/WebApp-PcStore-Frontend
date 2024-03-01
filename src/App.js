@@ -23,6 +23,7 @@ function App() {
     isLogged: false,
     token: "",
     staff: "",
+    role: "",
     loading: false,
     error: "",
   });
@@ -89,6 +90,7 @@ function App() {
       isLogged: false,
       token: "",
       staff: "",
+      role: "",
       loading: false,
       error: "",
     };
@@ -171,8 +173,9 @@ function App() {
                 isLogged: true,
                 token: resp.token, // token.token, because in resp. the token is under token name
                 staff: resp.staffLogin,
+                role: resp.role,
               };
-              console.log("User:", tempState.staffLogin);
+
               // saving the page state into sessionStorage
               saveToStorage(tempState);
               return tempState; //just now it changes the state
@@ -406,6 +409,7 @@ function App() {
               editCustomer={editCustomer}
               removeCustomer={removeCustomer}
               token={state.token}
+              role={state.role}
               customers={state.customers}
               errorMsg={state.error}
               setError={setError}
@@ -420,7 +424,12 @@ function App() {
   return (
     <div className="container-fluid">
       <header>
-        <Navbar isLogged={state.isLogged} logout={logout} staff={state.staff} />
+        <Navbar
+          isLogged={state.isLogged}
+          logout={logout}
+          staff={state.staff}
+          role={state.role}
+        />
       </header>
       <div className="text-center">
         <hr />

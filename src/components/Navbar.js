@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 // Navbar gets App component's functions via props
 const Navbar = (props) => {
-  console.log("staff:", props.staff);
   let links = (
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav"></ul>
@@ -10,7 +9,7 @@ const Navbar = (props) => {
   );
   if (props.isLogged) {
     links = (
-      <div className="row">
+      <div className="row  m-1 p-0">
         <div className="col mt-4">
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
@@ -24,21 +23,25 @@ const Navbar = (props) => {
                   Add Customer
                 </Link>
               </li>
-              <li className="nav-item" style={{ marginRight: 350 }}>
+              <li className="nav-item" style={{ marginRight: 500 }}>
                 <Link className="nav-link" to="/customers">
                   Customers
                 </Link>
               </li>
-              <li className="nav-item" style={{ marginRight: 50 }}>
+              <li>
+                <p
+                  className="navbar-text my-2 m-1 p-0 font-monospace"
+                  style={{ marginRight: 50 }}
+                >
+                  {props.role}
+                  {": "}
+                  {props.staff}
+                </p>
+              </li>
+              <li className="nav-item" style={{ marginLeft: 20 }}>
                 <Link className="nav-link" to="/logout" onClick={props.logout}>
                   Logout
                 </Link>
-              </li>
-              <li>
-                <p className="navbar-text m-1 p-0">
-                  Signed in as:{" "}
-                  <a className="navbar-brand mx-3">{props.staff}</a>
-                </p>
               </li>
             </ul>
           </div>
@@ -48,7 +51,7 @@ const Navbar = (props) => {
   }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container">
+      <div className="container mx-auto p-0">
         <div className="row">
           <div className="col">
             <p className="navbar-brand mt-3">PC Store</p>

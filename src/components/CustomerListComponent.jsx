@@ -67,6 +67,7 @@ const ListCustomerComponent = (props) => {
           <Row
             key={customer.customerID}
             customer={customer}
+            role={props.role}
             index={index}
             changeToRemoveMode={changeToRemoveMode}
             changeToEditMode={changeToEditMode}
