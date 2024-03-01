@@ -23,6 +23,7 @@ const ShopPage = (props) => {
         <OrderListComponent
           addOrder={props.addOrder}
           setError={props.setError}
+          staff={props.staff}
         />
       </div>
     </div>

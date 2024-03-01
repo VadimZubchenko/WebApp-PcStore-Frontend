@@ -87,7 +87,7 @@ const OrderListComponent = observer((props) => {
     props.setError("");
 
     setOrder({
-      staff: "vadimzu", // -!!!- to be fixed, hard-coded name of staff, so in table is always the same staff
+      staff: props.staff,
       totalPrice: summa.value,
       customer: [customer],
       orderedParts: [partDetails],

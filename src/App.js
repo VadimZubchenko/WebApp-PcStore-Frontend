@@ -392,6 +392,7 @@ function App() {
             <ShopPage
               addOrder={addOrder}
               list={state.list}
+              staff={state.staff}
               errorMsg={state.error}
               setError={setError}
             />
