@@ -16,7 +16,7 @@ const LoginPage = (props) => {
     confirmPassword: "",
   });
 
-  //useEffect being intitiated if 'isReg' state changes
+  //useEffect being intitiated if 'isReg' state is changed
   useEffect(() => {}, [state.isReg]);
 
   //function which changes a type of form for login/reg
@@ -86,101 +86,94 @@ const LoginPage = (props) => {
     }
   };
 
-  //this is just for changing in return() the state.login and state.password to login and password.
+  //get the names shorter in return(), as the state.login and state.password to login and password.
   const { staffName, login, password, confirmPassword } = state;
 
   return (
-    <Container
-      className="d-flex justify-content-center align-items-center position-relative"
-      style={{ height: window.innerHeight - 180 }}
-    >
-      <Card style={{ width: 500 }} className=" card-box p-5">
-        <h2>{state.isReg ? "Registration" : "Authorization"}</h2>
-        <div
-          style={{ width: 400, backgroundColor: "light-grey", margin: "auto" }}
-        >
-          <Form className="d-flex flex-column">
-            {state.isReg && (
-              <label htmlFor="staffName" className="form-label mb-0 mt-3">
-                Name
-              </label>
-            )}
-            {state.isReg && (
-              <FormControl
-                type="text"
-                name="staffName"
-                id="staffName"
-                className="mt-2"
-                placeholder="Enter your name..."
-                onChange={onChange}
-                value={staffName}
-              />
-            )}
-
-            <label htmlFor="login" className="form-label mb-0 mt-3">
-              Login
+    <Card style={{ width: 450 }} className="d-flex card-box p-4 mt-5">
+      <h2>{state.isReg ? "Registration" : "Authorization"}</h2>
+      <div style={{ width: 400, backgroundColor: "light-grey" }}>
+        <Form className="d-flex flex-column">
+          {state.isReg && (
+            <label htmlFor="staffName" className="form-label mb-0 mt-3">
+              Name
             </label>
+          )}
+          {state.isReg && (
             <FormControl
               type="text"
-              name="login"
-              id="login"
+              name="staffName"
+              id="staffName"
               className="mt-2"
-              placeholder="Enter your login..."
+              placeholder="Enter your name..."
               onChange={onChange}
-              value={login}
+              value={staffName}
             />
-            <label htmlFor="password" className="form-label mb-0 mt-3">
-              Password
+          )}
+
+          <label htmlFor="login" className="form-label mb-0 mt-3">
+            Login
+          </label>
+          <FormControl
+            type="text"
+            name="login"
+            id="login"
+            className="mt-2"
+            placeholder="Enter your login..."
+            onChange={onChange}
+            value={login}
+          />
+          <label htmlFor="password" className="form-label mb-0 mt-3">
+            Password
+          </label>
+          <FormControl
+            type="password"
+            name="password"
+            id="password"
+            className="mt-2"
+            placeholder="Enter your password"
+            onChange={onChange}
+            value={password}
+          />
+          {state.isReg && (
+            <label htmlFor="confirmPassword" className="form-label mt-2">
+              Confirm password
             </label>
+          )}
+          {state.isReg && (
             <FormControl
               type="password"
-              name="password"
-              id="password"
+              name="confirmPassword"
+              id="confirmPassword"
               className="mt-2"
-              placeholder="Enter your password"
+              placeholder="Repeat your password"
               onChange={onChange}
-              value={password}
+              value={confirmPassword}
             />
-            {state.isReg && (
-              <label htmlFor="confirmPassword" className="form-label mb-0 mt-3">
-                Confirm password
-              </label>
-            )}
-            {state.isReg && (
-              <FormControl
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                className="mt-2"
-                placeholder="Repeat your password"
-                onChange={onChange}
-                value={confirmPassword}
-              />
-            )}
-          </Form>
-          <Row className="d-flex justify-content-between mt-5">
-            <div className="d-grid gap-3">
-              <Button
-                variant={"outline-success"}
-                className="btn"
-                name={state.isReg ? "Registration" : "Login"}
-                onClick={onSubmit}
-              >
-                {state.isReg ? "REGISTER IN" : "SIGN IN"}
-              </Button>
-              <Button
-                variant={"outline-primary"}
-                className="btn"
-                name={state.isReg ? "Authorization" : "Registration"}
-                onClick={changeToReg}
-              >
-                {state.isReg ? "Authorization" : "Registration"}
-              </Button>
-            </div>
-          </Row>
-        </div>
-      </Card>
-    </Container>
+          )}
+        </Form>
+        <Row className="d-flex justify-content-between mt-5">
+          <div className="d-grid gap-4">
+            <Button
+              variant={"outline-success"}
+              className="btn"
+              name={state.isReg ? "Registration" : "Login"}
+              onClick={onSubmit}
+            >
+              {state.isReg ? "REGISTER IN" : "SIGN IN"}
+            </Button>
+            <Button
+              variant={"outline-primary"}
+              className="btn"
+              name={state.isReg ? "Authorization" : "Registration"}
+              onClick={changeToReg}
+            >
+              {state.isReg ? "Authorization" : "Registration"}
+            </Button>
+          </div>
+        </Row>
+      </div>
+    </Card>
   );
 };
 

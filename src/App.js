@@ -360,10 +360,10 @@ function App() {
   // the message will appear every rendering when first 'type' of state error param change  for instance even "empty"..." or "Register success"
   let messageArea = <h4></h4>;
   if (state.loading) {
-    messageArea = <h4>Loading...</h4>;
+    messageArea = <h5 className="alert alert-success m-0">Loading...</h5>;
   }
   if (state.error) {
-    messageArea = <h4>{state.error}</h4>;
+    messageArea = <h5 className="alert alert-success m-0 ">{state.error}</h5>;
   }
 
   // Create temporaly XML page, which will be present on the first page of APP
@@ -432,46 +432,17 @@ function App() {
           role={state.role}
         />
       </header>
-      <div className="text-center">
-        <hr />
-        {messageArea}
-      </div>
-      <div className="container-fluid bd-gutter grey-background card-box">
+      <div className="text-center">{messageArea}</div>
+      <div
+        className="container-fluid bd-gutter grey-background align-items-start card-box"
+        style={{ height: window.outerHeight - 80 }}
+      >
         {tempRender}
       </div>
       <footer className="footer bd-footer py-2 py-md-3 mt-4 bg-black position-relative">
         <FooterComponent />
       </footer>
     </div>
-
-    /*{ <<<<<<<<<<<<<< On branch main being version >>>>>>>>>>>>>>>>>> */
-    /* <div>
-      <Router>
-        <HeaderComponent />
-        <nav style={{ margin: 10 }}>
-          <Link to="/" style={{ padding: 5 }}>
-            Home
-          </Link>
-          <Link to="customers" style={{ padding: 5 }}>
-            Customers List
-          </Link>
-          <Link to="/add-customer" style={{ padding: 5 }}>
-            Add Customer
-          </Link>
-        </nav>
-        <div className="container">
-          <Routes>
-            <Route exact path="/" element={<ListCustomerComponent />} />
-            <Route path="/customers" element={<ListCustomerComponent />} />
-            <Route path="/add-customer" element={<AddCustomerForm />} />
-            <Route path="/*" element={<NoMatch />} />
-          </Routes>
-        </div>
-        <FooterComponent />
-      </Router>
-    </div>
-   <<<<<<<<<<<<<< On branch main being version >>>>>>>>>>>>>>>>>> 
-  }*/
   );
 }
 
