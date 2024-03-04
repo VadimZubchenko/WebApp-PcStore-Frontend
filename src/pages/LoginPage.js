@@ -78,6 +78,13 @@ const LoginPage = (props) => {
     };
     if (event.target.name === "Registration") {
       props.register(newUser);
+      //to clear reg. form from inputed data
+      setState({
+        staffName: "",
+        login: "",
+        password: "",
+        confirmPassword: "",
+      });
       console.log("before: " + state.staffName);
 
       console.log("after: " + state.staffName);

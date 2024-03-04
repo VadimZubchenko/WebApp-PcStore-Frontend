@@ -104,8 +104,7 @@ const OrderListComponent = observer((props) => {
     // send created order to the backend
     if (order.orderedParts.length !== 0) {
       props.addOrder(order);
-      props.setError("The order has been created succesfully");
-      console.log(order);
+      props.setError("The order has been added succesfully");
     }
   }, [order.customer, order.orderedParts, order.staff, order.totalPrice]);
 
