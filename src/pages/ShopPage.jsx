@@ -5,7 +5,11 @@ import AddCustomerForm from "../components/AddCustomerForm";
 import { useState } from "react";
 
 const ShopPage = (props) => {
-  const [value, setState] = useState("");
+  const [value, setState] = useState({
+    customerName: "",
+    address: "",
+    email: "",
+  });
 
   const clearCustForm = () => {
     setState({

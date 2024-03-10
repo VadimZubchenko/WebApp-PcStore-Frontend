@@ -138,7 +138,6 @@ function App() {
             return;
 
           case "addcustomer":
-            //getPartList();
             getCustomerList();
             return;
 
