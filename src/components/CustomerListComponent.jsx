@@ -42,7 +42,9 @@ const ListCustomerComponent = (props) => {
   };
 
   let customers = props.customers.length
-    ? props.customers.map((customer, index) => {
+    ? // an index as a second argument of map() has been taken from array list of customers
+      // The index of the current element being processed in the array.
+      props.customers.map((customer, index) => {
         if (state.editIndex === index) {
           return (
             <EditRow
@@ -68,7 +70,7 @@ const ListCustomerComponent = (props) => {
             key={customer.customerID}
             customer={customer}
             role={props.role}
-            index={index}
+            index={index} // index of the row has been taken as a second argument of map-function from customer Array list
             changeToRemoveMode={changeToRemoveMode}
             changeToEditMode={changeToEditMode}
           />

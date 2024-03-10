@@ -138,17 +138,15 @@ function App() {
             return;
 
           case "addcustomer":
-            getPartList();
+            //getPartList();
             getCustomerList();
             return;
 
           case "editCustomer":
-            getPartList();
             getCustomerList();
             return;
 
           case "removeCustomer":
-            getPartList();
             getCustomerList();
             return;
 

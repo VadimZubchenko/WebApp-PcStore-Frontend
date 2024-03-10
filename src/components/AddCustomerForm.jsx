@@ -8,11 +8,7 @@ import { observer } from "mobx-react-lite";
 const AddCustomerForm = observer((props) => {
   const { parts } = useContext(Context);
 
-  const [state, setState] = useState({
-    customerName: "",
-    address: "",
-    email: "",
-  });
+  const [state, setState] = useState("");
 
   /* create a class property with arrow function, that doesn't have own 'this.'
      and uses object of includes this arrow function class.
@@ -36,10 +32,17 @@ const AddCustomerForm = observer((props) => {
       address: "",
       email: "",
     });
+    console.log("Value from shop:", props.value);
   };
+
   useEffect(() => {
     parts.setNewCustomer(state);
   }, [state]);
+
+  // for order to clear customer form from parent class
+  useEffect(() => {
+    setState(props.value); //set empty state from parent class
+  }, [props.value]);
 
   const { customerName, address, email } = state;
   return (

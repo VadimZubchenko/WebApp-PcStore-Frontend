@@ -1,10 +1,19 @@
 //import ListCustomerComponent from "../components/CustomerListComponent";
-import React from "react";
 import OrderListComponent from "../components/OrderListCompont";
 import PartListComponent from "../components/PartListComponent";
 import AddCustomerForm from "../components/AddCustomerForm";
+import { useState } from "react";
 
 const ShopPage = (props) => {
+  const [value, setState] = useState("");
+
+  const clearCustForm = () => {
+    setState({
+      customerName: "",
+      address: "",
+      email: "",
+    });
+  };
   return (
     <div className="row">
       <div className="col-md-5 mx-auto">
@@ -15,7 +24,7 @@ const ShopPage = (props) => {
         </div>
         <div className="row">
           <div className="col mx-auto">
-            <AddCustomerForm />
+            <AddCustomerForm value={value} />
           </div>
         </div>
       </div>
@@ -24,6 +33,7 @@ const ShopPage = (props) => {
           addOrder={props.addOrder}
           setError={props.setError}
           staff={props.staff}
+          clearForm={clearCustForm}
         />
       </div>
     </div>
