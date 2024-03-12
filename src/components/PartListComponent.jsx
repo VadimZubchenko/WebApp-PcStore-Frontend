@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 
 const PartListComponent = observer((props) => {
   const { parts } = useContext(Context);
-
-  //const [selectedRow, setSelectedRow] = React.useState(-1);
 
   return (
     <div

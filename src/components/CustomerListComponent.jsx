@@ -8,7 +8,7 @@ const ListCustomerComponent = (props) => {
     removeIndex: -1,
     editIndex: -1,
   });
-  //initaite in 'App.js' class's getCustomer() method via props.
+  //initiate in 'App.js' class's getCustomer() method via props.
   useEffect(() => {
     props.getCustomerList(props.token);
   }, [state.removeIndex, state.editIndex]);

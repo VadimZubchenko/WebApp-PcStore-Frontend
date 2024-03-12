@@ -1,19 +1,12 @@
-/* import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import FooterComponent from "./components/FooterComponent";
-import HeaderComponent from "./components/HeaderComponent";
-import ListCustomerComponent from "./components/ListCustomerComponent";
-import AddCustomerForm from "./components/AddCustomerForm";
-import NoMatch from "./components/NoMatch";
- */
 import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LoginPage from "./pages/LoginPage";
 import CustomerListComponent from "./components/CustomerListComponent";
-import AddCustomerForm from "./components/AddCustomerForm";
 import ShopPage from "./pages/ShopPage";
 import FooterComponent from "./components/FooterComponent";
+import AddParts from "./components/AddParts";
 
 function App() {
   // Create first state with staff list, token and error for showing a message of processing
@@ -153,6 +146,10 @@ function App() {
             getPartList();
             return;
 
+          case "addParts":
+            getPartList();
+            return;
+
           case "register":
             //the methood 'setError()' upddates STATE with error: "Register success"
             //and initiates the very first time 'saveToStorage(s)', see above
@@ -281,6 +278,18 @@ function App() {
       action: "getlist",
     });
   };
+  const addParts = (item) => {
+    setUrlRequest({
+      url: "/parts",
+      request: {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-type": "application/json", token: state.token },
+        body: JSON.stringify(item),
+      },
+      action: "addParts",
+    });
+  };
   const getCustomerList = (token) => {
     let temptoken = state.token; // it "null " before 'login'
     if (token) {
@@ -297,19 +306,19 @@ function App() {
       action: "getCustomers",
     });
   };
-  // add Customers function
-  const addCustomer = (item) => {
-    setUrlRequest({
-      url: "/customers",
-      request: {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-type": "application/json", token: state.token },
-        body: JSON.stringify(item),
-      },
-      action: "addcustomer",
-    });
-  };
+  // addCustomer temporaly don't use, because new user is saved while ordering
+  // const addCustomer = (item) => {
+  //   setUrlRequest({
+  //     url: "/customers",
+  //     request: {
+  //       method: "POST",
+  //       mode: "cors",
+  //       headers: { "Content-type": "application/json", token: state.token },
+  //       body: JSON.stringify(item),
+  //     },
+  //     action: "addcustomer",
+  //   });
+  // };
   const removeCustomer = (customerID) => {
     setUrlRequest({
       url: "/customers/" + customerID,
@@ -337,7 +346,6 @@ function App() {
     });
   };
 
-  //addOrder
   const addOrder = (item) => {
     setUrlRequest({
       url: "/orders",
@@ -389,6 +397,8 @@ function App() {
             <ShopPage
               addOrder={addOrder}
               list={state.list}
+              getPartList={getPartList}
+              token={state.token}
               staff={state.staff}
               errorMsg={state.error}
               setError={setError}
@@ -396,9 +406,10 @@ function App() {
           }
         />
         <Route
-          path="/add-customer"
-          element={<AddCustomerForm addCustomer={addCustomer} />}
+          path="/parts"
+          element={<AddParts addParts={addParts} errorMsg={state.error} />}
         />
+
         <Route
           path="/customers"
           element={

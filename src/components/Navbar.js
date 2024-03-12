@@ -14,13 +14,13 @@ const Navbar = (props) => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item" style={{ marginRight: 30 }}>
-                <Link className="nav-link" to="/parts">
+                <Link className="nav-link" to="/">
                   Make Order
                 </Link>
               </li>
               <li className="nav-item" style={{ marginRight: 30 }}>
-                <Link className="nav-link" to="/add-customer">
-                  Add Customer
+                <Link className="nav-link" to="/parts">
+                  Add Parts
                 </Link>
               </li>
               <li className="nav-item" style={{ marginRight: 500 }}>

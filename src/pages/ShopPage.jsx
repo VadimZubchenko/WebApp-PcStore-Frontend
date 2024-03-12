@@ -23,7 +23,12 @@ const ShopPage = (props) => {
       <div className="col-md-5 mx-auto">
         <div className="row">
           <div className="col mx-auto">
-            <PartListComponent list={props.list} setError={props.setError} />
+            <PartListComponent
+              list={props.list}
+              setError={props.setError}
+              getPartList={props.getPartList}
+              token={props.token}
+            />
           </div>
         </div>
         <div className="row">

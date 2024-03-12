@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
-// import axios from "axios";
-
-//const CUSTOMER_API_BASE_URL = "http://localhost:8080/customers";
 
 const AddCustomerForm = observer((props) => {
   const { parts } = useContext(Context);
