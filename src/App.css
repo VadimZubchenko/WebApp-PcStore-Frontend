@@ -43,16 +43,30 @@
   width: 100%;
   background-color: grey;
   color: white;
-  text-align: center; 
+  text-align: center;
 }
 
-table {
-  border: 2px solid teal;
+.table {
+  border-collapse: separate;
+  border-spacing: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.table-wrapper {
+  overflow-y: scroll;
+}
+
+.th {
+  position: sticky;
+  border-bottom: 5px solid;
+  top: 0px;
+  background-color: lightgray;
+  padding: auto;
 }
 
 tr {
   border: 0px;
-  border-bottom: 2px solid teal;
+  border-bottom: 2px;
 }
 
 .clickable-row {
@@ -64,20 +78,13 @@ tr {
   background-color: rgb(231, 239, 238);
 }
 
-/* .selected, 
-.selected:hover {
-  background-color: rgb(197, 205, 205);
-} */
-
-/*order quantity increment decrement  */
 .quantity-input {
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 3px;
-  
+
   &:focus {
     background: red;
   }
@@ -90,27 +97,27 @@ tr {
 }
 
 .quantity-input__modifier {
-  padding: .5rem;
+  padding: 0.5rem;
   width: 7rem;
   font-size: 1.5rem;
-  
+
   background: #f3f3f3;
   color: #000000;
   border: 0 solid #dbdbdb;
   text-align: center;
-  text-shadow: 0 1px 0 rgba(#fff, .6);
-  
+  text-shadow: 0 1px 0 rgba(#fff, 0.6);
+
   cursor: pointer;
-  
+
   &:hover {
-    background:grey;
-    color: #fdfbfb
-  } 
-  
+    background: grey;
+    color: #fdfbfb;
+  }
+
   &--left {
     border-radius: 3px 0 0 3px;
   }
-  
+
   &--right {
     border-radius: 3px 0 0 3px;
   }
@@ -118,30 +125,28 @@ tr {
 
 .quantity-input__screen {
   width: 7rem;
-  padding: .5rem;
+  padding: 0.5rem;
   font-size: 1.5rem;
-  
+
   border: 0;
   border-top: 0 solid #dbdbdb;
   border-bottom: 0 solid #dbdbdb;
   text-align: center;
 }
 
-
 .grey-background {
   width: flex;
   height: flex;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* border: 5px solid #00ff51; */
   position: relative;
-  
+
   background: #e2e1e0;
   color: #333;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 300;
   font-size: 1rem;
 }
@@ -149,27 +154,24 @@ tr {
 .partsZone {
   width: 40%;
   height: 700px;
-  /* border: 5px solid #f00; */
   position: absolute;
   top: 0px;
   left: 0px;
 }
-.orderZone{
+.orderZone {
   width: 60%;
   height: auto;
-  /* border: 5px solid #f00; */
   position: absolute;
   top: 150px;
   right: 50px;
-  
 }
-.selector{
+.selector {
   width: 30%;
   height: auto;
   top: 10%;
   left: 10%;
 }
-.orderTable{
+.orderTable {
   width: 50%;
   height: auto;
   /* border: 5px solid #2f29cb; */
@@ -178,7 +180,7 @@ tr {
   left: 40%;
 }
 .partTable,
-.customerForm{
+.customerForm {
   width: 30%;
   height: auto;
   /* border: 5px solid #2f29cb; */
@@ -186,7 +188,7 @@ tr {
   top: 100px;
   left: 15%;
 }
-.border-blue{
+.border-blue {
   border: 5px solid #2f29cb;
 }
 
@@ -195,7 +197,3 @@ tr {
   border-radius: 2%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
-
- 
-

@@ -30,7 +30,8 @@ function App() {
 
   //STORAGE FUNCTIOINS
 
-  //this useEffect being intitiated from all states changes, because below array argument "[]" is empty
+  //useEffect() runs only on the first render because an empty array ([]) as a second argument
+  //without the second argument it runs on every render
   useEffect(() => {
     // saving session on the web-browser gives opportunity reload page into same state
     // without that it goes comeback to loginpage
@@ -43,6 +44,7 @@ function App() {
       if (state.isLogged) {
         //loads getPartList(token) after reloading the page
         getPartList(state.token);
+        getCustomerList(state.token);
       }
     }
   }, []);
@@ -104,7 +106,7 @@ function App() {
       setLoading(false);
       if (response.ok) {
         switch (urlRequest.action) {
-          case "getlist":
+          case "getParts":
             let data = await response.json();
             setState((state) => {
               let tempState = {
@@ -115,6 +117,7 @@ function App() {
               saveToStorage(tempState);
               return tempState;
             });
+            getCustomerList(state.token); //update customer every time when getParts
             return;
 
           case "getCustomers":
@@ -151,7 +154,7 @@ function App() {
             return;
 
           case "register":
-            //the methood 'setError()' upddates STATE with error: "Register success"
+            //the methood 'setError()' updates STATE with argument: "Register success"
             //and initiates the very first time 'saveToStorage(s)', see above
             setError("Register success");
             return;
@@ -165,7 +168,7 @@ function App() {
               let tempState = {
                 ...state,
                 isLogged: true,
-                token: resp.token, // token.token, because in resp. the token is under token name
+                token: resp.token, // resp.token, because in resp. the token is under token name
                 staff: resp.staffLogin,
                 role: resp.role,
               };
@@ -175,6 +178,7 @@ function App() {
               return tempState; //just now it changes the state
             });
             getPartList(resp.token);
+
             return;
 
           case "logout":
@@ -275,7 +279,7 @@ function App() {
         //The token is inserted into headers.
         headers: { "Content-type": "application/json", token: temptoken },
       },
-      action: "getlist",
+      action: "getParts",
     });
   };
   const addParts = (item) => {

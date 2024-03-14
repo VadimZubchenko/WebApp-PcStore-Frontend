@@ -153,21 +153,21 @@ const OrderListComponent = observer((props) => {
         </button>
       </div>
       <div className="col">
+        <h2 className="text-center mt-4">Order</h2>
         <div
-          className="ag-theme-alpine mt-5 mx-auto p-3 mb-3 card-box"
+          className="ag-theme-alpine mx-auto p-0 mb-3 card-box table-wrapper"
           style={{ height: 600, width: 600 }}
         >
-          <h2 className="text-center">Order</h2>
           <table
-            className="table table-striped table-borderless"
+            className="table table-striped"
             onClick={() => console.log(order.length)}
           >
-            <thead>
+            <thead className="th">
               <tr>
                 <th className="text-center">ID</th>
-                <th className="text-start">Part Name</th>
-                <th className="text-start">Part Type</th>
-                <th className="text-center">Part Quantity</th>
+                <th className="text-start">Name</th>
+                <th className="text-start">Type</th>
+                <th className="text-center">Quantity</th>
                 <th className="text-start">Price</th>
               </tr>
             </thead>
