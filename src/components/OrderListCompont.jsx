@@ -22,6 +22,7 @@ const OrderListComponent = observer((props) => {
     customer: [],
     orderedParts: [],
   });
+  const [message, setMessage] = useState("");
 
   const increment = () => {
     setQuantity({ value: ++orderedQuantity.value });
@@ -35,10 +36,10 @@ const OrderListComponent = observer((props) => {
   const addPart = () => {
     console.log("Selected part id: " + parts.selectedPart.partID);
     if (parts.selectedPart.partID == null || parts.selectedPart.partID === 0) {
-      props.setError("Please select a part");
+      setMessage("Please start by selecting the part");
       return;
     }
-    props.setError("");
+
     let rowPart = {
       ID: nextID++,
       partID: parts.selectedPart.partID,
@@ -59,6 +60,7 @@ const OrderListComponent = observer((props) => {
     setSumma({
       value: summa.value + parts.selectedPart.partPrice * orderedQuantity.value,
     });
+    setMessage("");
   };
   const createOrder = () => {
     let customer = {
@@ -68,11 +70,9 @@ const OrderListComponent = observer((props) => {
     };
     if (summa.value === 0) {
       console.log("Order totalPrice: " + summa.value);
-      props.setError("Please add selected part into order list");
-
+      setMessage("Please Add part into order list");
       return;
     }
-    props.setError("");
     //check if all raws of customer form are filled out
     if (
       parts.newCustomer.customerName === "" ||
@@ -80,11 +80,10 @@ const OrderListComponent = observer((props) => {
       parts.newCustomer.email === ""
     ) {
       console.log("Customer data: " + order.customer.length);
-      props.setError("Please fill out the customer form");
+      setMessage("Please fill out the customer form");
 
       return;
     }
-    props.setError("");
 
     setOrder({
       staff: props.staff,
@@ -92,6 +91,7 @@ const OrderListComponent = observer((props) => {
       customer: [customer],
       orderedParts: [partDetails],
     });
+    setMessage("The order has been DONE!");
   };
 
   const cancel = () => {
@@ -104,11 +104,27 @@ const OrderListComponent = observer((props) => {
     // send created order to the backend
     if (order.orderedParts.length !== 0) {
       props.addOrder(order);
-      props.setError("The order has been created succesfully");
       props.clearForm();
       cancel();
+
+      const interval = setInterval(() => {
+        setMessage("");
+      }, 4000);
+      return () => clearInterval(interval);
     }
   }, [order.customer, order.orderedParts, order.staff, order.totalPrice]);
+
+  let messageArea = <h4></h4>;
+  if (message.length !== 0) {
+    messageArea = (
+      <h4
+        className="alert alert-success card-box"
+        style={{ height: 100, width: 250 }}
+      >
+        {message}
+      </h4>
+    );
+  }
 
   return (
     <div className="row">
@@ -146,12 +162,16 @@ const OrderListComponent = observer((props) => {
 
         <button
           type="button"
-          className="btn btn-secondary mx-auto"
+          className="btn btn-lg btn-secondary mx-auto"
           onClick={addPart}
         >
           Add part
         </button>
+        <div className="mt-5" style={{ height: 50 }}>
+          {messageArea}
+        </div>
       </div>
+
       <div className="col">
         <h2 className="text-center mt-4">Order</h2>
         <div

@@ -41,6 +41,7 @@ const ShopPage = (props) => {
         <OrderListComponent
           addOrder={props.addOrder}
           setError={props.setError}
+          errorMsg={props.errorMsg}
           staff={props.staff}
           clearForm={clearCustForm}
         />
