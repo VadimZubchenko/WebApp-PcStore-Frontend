@@ -18,6 +18,7 @@ const ShopPage = (props) => {
       email: "",
     });
   };
+
   return (
     <div className="row">
       <div className="col-md-5 mx-auto">

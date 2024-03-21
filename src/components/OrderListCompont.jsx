@@ -60,7 +60,6 @@ const OrderListComponent = observer((props) => {
     setSumma({
       value: summa.value + parts.selectedPart.partPrice * orderedQuantity.value,
     });
-    setMessage("");
   };
   const createOrder = () => {
     let customer = {
@@ -106,7 +105,6 @@ const OrderListComponent = observer((props) => {
       props.addOrder(order);
       props.clearForm();
       cancel();
-
       const interval = setInterval(() => {
         setMessage("");
       }, 4000);
@@ -114,11 +112,11 @@ const OrderListComponent = observer((props) => {
     }
   }, [order.customer, order.orderedParts, order.staff, order.totalPrice]);
 
-  let messageArea = <h4></h4>;
+  let messageArea = <h4> </h4>;
   if (message.length !== 0) {
     messageArea = (
       <h4
-        className="alert alert-success card-box"
+        className="alert alert-success opacity-75 fade show"
         style={{ height: 100, width: 250 }}
       >
         {message}
@@ -128,7 +126,7 @@ const OrderListComponent = observer((props) => {
 
   return (
     <div className="row">
-      <div className="col-md-3 mt-5 mx-auto text-center">
+      <div className="col-md-3 mt-5 mx-auto text-center position-relative">
         <h2>Total Price:</h2>
         <input
           className="quantity-input__screen"
@@ -167,15 +165,13 @@ const OrderListComponent = observer((props) => {
         >
           Add part
         </button>
-        <div className="mt-5" style={{ height: 50 }}>
-          {messageArea}
-        </div>
+        <div className="position-absolute bottom-0 mb-5">{messageArea}</div>
       </div>
 
       <div className="col">
         <h2 className="text-center mt-4">Order</h2>
         <div
-          className="ag-theme-alpine mx-auto p-0 mb-3 card-box table-wrapper"
+          className="ag-theme-alpine mx-auto p-0 mb-3 card-box scrollable-table"
           style={{ height: 600, width: 600 }}
         >
           <table

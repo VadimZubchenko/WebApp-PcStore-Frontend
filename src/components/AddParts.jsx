@@ -3,8 +3,8 @@ const AddParts = (props) => {
   const [state, setState] = useState({
     partName: "",
     partType: "",
-    stockQuantity: 0,
-    partPrice: 0,
+    stockQuantity: 10,
+    partPrice: 1,
   });
   const onChange = (event) => {
     setState((state) => {
@@ -16,15 +16,19 @@ const AddParts = (props) => {
   };
   const onSubmit = (event) => {
     event.preventDefault();
+    if (state.stockQuantity <= 0 || state.partPrice <= 0) {
+      props.setError("The quantity and the price must be more then '0'");
+      return;
+    }
     let item = {
       ...state,
     };
     props.addParts(item);
     setState({
-      name: "",
-      type: "",
-      count: 0,
-      price: 0,
+      partName: "",
+      partType: "",
+      stockQuantity: 10,
+      partPrice: 1,
     });
   };
   return (
@@ -41,10 +45,10 @@ const AddParts = (props) => {
               name="partName"
               id="partName"
               placeholder="Enter part name"
-              required
               className="form-control"
               onChange={onChange}
               value={state.partName}
+              required
             />
             <label htmlFor="partType" className="form-label mb-0 mt-3">
               Type
@@ -55,9 +59,9 @@ const AddParts = (props) => {
               id="partType"
               placeholder="Enter type"
               className="form-control"
-              required
               onChange={onChange}
               value={state.partType}
+              required
             />
             <label htmlFor="stockQuantity" className="form-label mb-0 mt-3">
               Count
@@ -67,9 +71,9 @@ const AddParts = (props) => {
               name="stockQuantity"
               id="stockQuantity"
               className="form-control"
-              required
               onChange={onChange}
               value={state.stockQuantity}
+              required
             />
             <label htmlFor="partPrice" className="form-label mb-0 mt-3">
               Price
@@ -78,11 +82,11 @@ const AddParts = (props) => {
               type="number"
               name="partPrice"
               id="partPrice"
-              required
-              step="0.01"
+              step="0.1"
               className="form-control"
               onChange={onChange}
               value={state.partPrice}
+              required
             />
             <div className="d-grid">
               <input

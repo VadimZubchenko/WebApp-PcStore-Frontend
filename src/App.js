@@ -7,12 +7,13 @@ import CustomerListComponent from "./components/CustomerListComponent";
 import ShopPage from "./pages/ShopPage";
 import FooterComponent from "./components/FooterComponent";
 import AddParts from "./components/AddParts";
-
+import OrdersDetails from "./components/OrdersDetails";
 function App() {
-  // Create first state with staff list, token and error for showing a message of processing
+  // Create first state with staff parts, token and error for showing a message of processing
   const [state, setState] = useState({
     list: [],
     customers: [],
+    orders: [],
     isLogged: false,
     token: "",
     staff: "",
@@ -43,8 +44,9 @@ function App() {
       //first time state.isLogged==true in useEffect() case "login":
       if (state.isLogged) {
         //loads getPartList(token) after reloading the page
-        getPartList(state.token);
-        getCustomerList(state.token);
+        // getPartList(state.token);
+        // getCustomerList(state.token);
+        // getOrdersDetailsList(state.token);
       }
     }
   }, []);
@@ -82,6 +84,7 @@ function App() {
     let state = {
       list: [],
       customers: [],
+      orders: [],
       isLogged: false,
       token: "",
       staff: "",
@@ -117,7 +120,20 @@ function App() {
               saveToStorage(tempState);
               return tempState;
             });
-            getCustomerList(state.token); //update customer every time when getParts
+            getOrdersDetailsList(state.token); //update customer every time when getParts
+            return;
+
+          case "getOrdersDetails":
+            let orders = await response.json();
+            setState((state) => {
+              let tempState = {
+                ...state,
+                orders: orders,
+              };
+              saveToStorage(tempState);
+              return tempState;
+            });
+            getCustomerList(state.token);
             return;
 
           case "getCustomers":
@@ -310,19 +326,7 @@ function App() {
       action: "getCustomers",
     });
   };
-  // addCustomer temporaly don't use, because new user is saved while ordering
-  // const addCustomer = (item) => {
-  //   setUrlRequest({
-  //     url: "/customers",
-  //     request: {
-  //       method: "POST",
-  //       mode: "cors",
-  //       headers: { "Content-type": "application/json", token: state.token },
-  //       body: JSON.stringify(item),
-  //     },
-  //     action: "addcustomer",
-  //   });
-  // };
+
   const removeCustomer = (customerID) => {
     setUrlRequest({
       url: "/customers/" + customerID,
@@ -363,16 +367,38 @@ function App() {
     });
   };
 
+  const getOrdersDetailsList = (token) => {
+    let temptoken = state.token;
+    if (token) {
+      temptoken = token;
+    }
+    setUrlRequest({
+      url: "/orders",
+      request: {
+        method: "GET",
+        mode: "cors",
+        headers: { "Content-type": "application/json", token: temptoken },
+      },
+      action: "getOrdersDetails",
+    });
+  };
+
   //CONDITION RENDERING for different JSX presentation
 
   // create a 'message area' under Navbar for Informing client what being happended while different stage of requesting is
   // the message will appear every rendering when first 'type' of state error param change  for instance even "empty"..." or "Register success"
   let messageArea = <h4></h4>;
   if (state.loading) {
-    messageArea = <h5 className="alert alert-success m-0">Loading...</h5>;
+    messageArea = (
+      <h5 className="alert alert-info opacity-75 scroll-top m-0">Loading...</h5>
+    );
   }
   if (state.error) {
-    messageArea = <h5 className="alert alert-success m-0 ">{state.error}</h5>;
+    messageArea = (
+      <h5 className="alert alert-info opacity-75 alert-dismissable m-0 ">
+        {state.error}
+      </h5>
+    );
   }
 
   // Create temporaly XML page, which will be present on the first page of APP
@@ -397,7 +423,7 @@ function App() {
           exact
           path="/"
           element={
-            //<ListCustomerComponent list={state.list} errorMsg={state.error} />
+            //<ListCustomerComponent parts={state.parts} errorMsg={state.error} />
             <ShopPage
               addOrder={addOrder}
               list={state.list}
@@ -410,8 +436,25 @@ function App() {
           }
         />
         <Route
+          path="/orders"
+          element={
+            <OrdersDetails
+              orders={state.orders}
+              errorMsg={state.error}
+              setError={setError}
+            />
+          }
+        />
+        <Route
           path="/parts"
-          element={<AddParts addParts={addParts} errorMsg={state.error} />}
+          element={
+            <AddParts
+              addParts={addParts}
+              token={state.token}
+              errorMsg={state.error}
+              setError={setError}
+            />
+          }
         />
 
         <Route

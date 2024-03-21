@@ -9,7 +9,7 @@ const PartListComponent = observer((props) => {
     <div>
       <h2 className="text-center mt-4">Parts</h2>
       <div
-        className="ag-theme-alpine mx-auto mb-3 p-0 card-box table-wrapper"
+        className="ag-theme-alpine mx-auto mb-3 card-box scrollable-table"
         style={{ height: 300, width: 600 }}
       >
         <table className="table">

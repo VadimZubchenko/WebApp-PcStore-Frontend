@@ -83,7 +83,7 @@ const ListCustomerComponent = (props) => {
     <div className="row mx-auto">
       <h2 className="text-center mt-4">Customers List</h2>
       <div
-        className="ag-theme-alpine mt-auto mx-auto p-0 mb-3 card-box table-wrapper"
+        className="ag-theme-alpine mx-auto mb-3 card-box scrollable-table"
         style={{ height: 600, width: 800 }}
       >
         <table className="table table-striped">

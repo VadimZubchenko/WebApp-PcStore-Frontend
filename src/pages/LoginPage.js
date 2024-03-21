@@ -57,6 +57,10 @@ const LoginPage = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (state.login === "" || state.password === "") {
+      props.setError("Please fill out the form below");
+      return;
+    }
     if (state.login.length < 4 || state.password.length < 8) {
       // the message will appear in messageArea of App's component by changig state's parameter 3setError=(error)
       props.setError(

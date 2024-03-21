@@ -47,24 +47,30 @@
 }
 
 .table {
-  border-collapse: separate;
-  border-spacing: 0px;
+  border-collapse: collapse;
   padding-left: 8px;
   padding-right: 8px;
 }
-.table-wrapper {
+
+.scrollable-table {
   overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 
-.th {
+.scrollable-table > .table {
+  width: 100%;
+}
+
+.table th {
   position: sticky;
-  border-bottom: 5px solid;
+  border-bottom: 2px, solid;
   top: 0px;
   background-color: lightgray;
   padding: auto;
 }
 
-tr {
+.table tr {
+  scroll-snap-align: start;
   border: 0px;
   border-bottom: 2px;
 }
